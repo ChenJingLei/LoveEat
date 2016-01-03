@@ -5,7 +5,7 @@ import javax.persistence.*;
 /**
  * Created by HeZYSaaaaln on 2016/1/3.
  */
-@Table(name = "DealerTable")
+@Table(name = "Dealer_Table")
 @Entity
 public class Dealer {
     @Id

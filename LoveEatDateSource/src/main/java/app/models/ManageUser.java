@@ -5,7 +5,7 @@ import javax.persistence.*;
 /**
  * Created by cjl20 on 2016/1/3.
  */
-@Table(name = "ManageUserTable")
+@Table(name = "Manage_User_Table")
 @Entity
 public class ManageUser {
 
