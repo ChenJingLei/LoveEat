@@ -16,8 +16,8 @@ public class Goods {
     @Column(name = "Gname", columnDefinition = "VARCHAR(100)", length = 100)
     private String name;
 
-    @Column(name = "Gnum", columnDefinition = "VARCHAR(50)", length = 50)
-    private String num;
+    @Column(name = "Gnum", columnDefinition = "INT")
+    private Long num;
 
     @Column(name = "Guprice", columnDefinition = "float")
     private String uprice;
@@ -32,7 +32,7 @@ public class Goods {
 
     }
 
-    public Goods(String name, String num, String uprice, String oplace, String mdate) {
+    public Goods(String name, Long num, String uprice, String oplace, String mdate) {
         this.name = name;
         this.num = num;
         this.uprice = uprice;
@@ -56,11 +56,11 @@ public class Goods {
         this.name = name;
     }
 
-    public String getNum() {
+    public Long getNum() {
         return num;
     }
 
-    public void setNum(String num) {
+    public void setNum(Long num) {
         this.num = num;
     }
 
@@ -94,7 +94,7 @@ public class Goods {
                 "mdate='" + mdate + '\'' +
                 ", oplace='" + oplace + '\'' +
                 ", uprice='" + uprice + '\'' +
-                ", num='" + num + '\'' +
+                ", num=" + num +
                 ", name='" + name + '\'' +
                 ", id=" + id +
                 '}';
