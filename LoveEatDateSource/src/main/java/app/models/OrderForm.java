@@ -12,52 +12,52 @@ public class OrderForm {
     @GeneratedValue(strategy = GenerationType.IDENTITY)//主键自动添加
 
     @Column(name = "OFid", columnDefinition = "INT")
-    private Long OFid;
+    private Long ofid;
 
     @Column(name = "Gid", columnDefinition = "INT")
-    private Long Gid;
+    private Long gid;
 
     @Column(name = "Did", columnDefinition = "INT")
-    private Long Did;
+    private Long did;
 
     @Column(name = "OFnum", columnDefinition = "INT")
     private Long num;
 
     @Column(name = "OFaddress", columnDefinition = "INT")
-    private Long address;
+    private String address;
 
     public OrderForm() {
     }
 
-    public OrderForm(Long gid, Long did, Long num, Long address) {
-        Gid = gid;
-        Did = did;
+    public OrderForm(Long gid, Long did, Long num, String address) {
+        this.gid = gid;
+        this.did = did;
         this.num = num;
         this.address = address;
     }
 
-    public Long getOFid() {
-        return OFid;
+    public Long getOfid() {
+        return ofid;
     }
 
-    public void setOFid(Long OFid) {
-        this.OFid = OFid;
+    public void setOfid(Long ofid) {
+        this.ofid = ofid;
     }
 
     public Long getGid() {
-        return Gid;
+        return gid;
     }
 
     public void setGid(Long gid) {
-        Gid = gid;
+        this.gid = gid;
     }
 
     public Long getDid() {
-        return Did;
+        return did;
     }
 
     public void setDid(Long did) {
-        Did = did;
+        this.did = did;
     }
 
     public Long getNum() {
@@ -68,22 +68,22 @@ public class OrderForm {
         this.num = num;
     }
 
-    public Long getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(Long address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
     @Override
     public String toString() {
         return "OrderForm{" +
-                "address=" + address +
+                "ofid=" + ofid +
+                ", gid=" + gid +
+                ", did=" + did +
                 ", num=" + num +
-                ", Did=" + Did +
-                ", Gid=" + Gid +
-                ", OFid=" + OFid +
+                ", address='" + address + '\'' +
                 '}';
     }
 }

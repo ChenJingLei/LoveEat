@@ -15,7 +15,7 @@ public class ManageUser {
     private Long id;
 
     @Column(name = "MUopenid", columnDefinition = "VARCHAR(100)", length = 100)
-    private String OpenId;
+    private String openid;
 
     @Column(name = "MUname", columnDefinition = "VARCHAR(50)", length = 50)
     private String name;
@@ -31,12 +31,6 @@ public class ManageUser {
         this.phone = phone;
     }
 
-    public ManageUser(String openId, String name, String phone) {
-        OpenId = openId;
-        this.name = name;
-        this.phone = phone;
-    }
-
     public Long getId() {
         return id;
     }
@@ -45,12 +39,12 @@ public class ManageUser {
         this.id = id;
     }
 
-    public String getOpenId() {
-        return OpenId;
+    public String getOpenid() {
+        return openid;
     }
 
-    public void setOpenId(String openId) {
-        OpenId = openId;
+    public void setOpenid(String openid) {
+        this.openid = openid;
     }
 
     public String getName() {
@@ -72,10 +66,10 @@ public class ManageUser {
     @Override
     public String toString() {
         return "ManageUser{" +
-                "id=" + id +
-                ", OpenId='" + OpenId + '\'' +
+                "phone='" + phone + '\'' +
                 ", name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
+                ", openid='" + openid + '\'' +
+                ", id=" + id +
                 '}';
     }
 }

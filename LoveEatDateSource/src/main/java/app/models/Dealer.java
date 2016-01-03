@@ -15,7 +15,7 @@ public class Dealer {
     private Long id;
 
     @Column(name = "Dopenid", columnDefinition = "VARCHAR(100)", length = 100)
-    private String OpenId;
+    private String openid;
 
     @Column(name = "Dname", columnDefinition = "VARCHAR(50)", length = 50)
     private String name;
@@ -26,8 +26,8 @@ public class Dealer {
     public Dealer() {
     }
 
-    public Dealer(String openId, String name, String phone) {
-        OpenId = openId;
+    public Dealer(String openid, String name, String phone) {
+        this.openid = openid;
         this.name = name;
         this.phone = phone;
     }
@@ -40,12 +40,12 @@ public class Dealer {
         this.id = id;
     }
 
-    public String getOpenId() {
-        return OpenId;
+    public String getOpenid() {
+        return openid;
     }
 
-    public void setOpenId(String openId) {
-        OpenId = openId;
+    public void setOpenid(String openid) {
+        this.openid = openid;
     }
 
     public String getName() {
@@ -68,7 +68,7 @@ public class Dealer {
     public String toString() {
         return "Dealer{" +
                 "id=" + id +
-                ", OpenId='" + OpenId + '\'' +
+                ", openid='" + openid + '\'' +
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';
