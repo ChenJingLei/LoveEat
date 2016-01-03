@@ -14,26 +14,30 @@ public class Goods {
     private Long id;
 
     @Column(name = "Gname", columnDefinition = "VARCHAR(100)", length = 100)
-    private String Gname;
+    private String name;
 
     @Column(name = "Gnum", columnDefinition = "VARCHAR(50)", length = 50)
-    private String Gnum;
+    private String num;
 
     @Column(name = "Guprice", columnDefinition = "float")
-    private String Guprice;
+    private String uprice;
 
     @Column(name = "Goplace", columnDefinition = "VARCHAR(100)",length = 100)
-    private String Goplace;
+    private String oplace;
 
-    @Column(name = "GMdate", columnDefinition = "date")
-    private String GMdate;
+    @Column(name = "Gmdate", columnDefinition = "date")
+    private String mdate;
 
-    public Goods(String gname, String gnum, String guprice, String goplace, String gmdate) {
-        Gname = gname;
-        Gnum = gnum;
-        Guprice = guprice;
-        Goplace = goplace;
-        GMdate = gmdate;
+    public Goods() {
+
+    }
+
+    public Goods(String name, String num, String uprice, String oplace, String mdate) {
+        this.name = name;
+        this.num = num;
+        this.uprice = uprice;
+        this.oplace = oplace;
+        this.mdate = mdate;
     }
 
     public Long getId() {
@@ -44,55 +48,55 @@ public class Goods {
         this.id = id;
     }
 
-    public String getGname() {
-        return Gname;
+    public String getName() {
+        return name;
     }
 
-    public void setGname(String gname) {
-        Gname = gname;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getGnum() {
-        return Gnum;
+    public String getNum() {
+        return num;
     }
 
-    public void setGnum(String gnum) {
-        Gnum = gnum;
+    public void setNum(String num) {
+        this.num = num;
     }
 
-    public String getGuprice() {
-        return Guprice;
+    public String getUprice() {
+        return uprice;
     }
 
-    public void setGuprice(String guprice) {
-        Guprice = guprice;
+    public void setUprice(String uprice) {
+        this.uprice = uprice;
     }
 
-    public String getGoplace() {
-        return Goplace;
+    public String getOplace() {
+        return oplace;
     }
 
-    public void setGoplace(String goplace) {
-        Goplace = goplace;
+    public void setOplace(String oplace) {
+        this.oplace = oplace;
     }
 
-    public String GMdate() {
-        return GMdate;
+    public String getMdate() {
+        return mdate;
     }
 
-    public void setGmdate(String GMdate) {
-        GMdate = GMdate;
+    public void setMdate(String mdate) {
+        this.mdate = mdate;
     }
 
     @Override
     public String toString() {
         return "Goods{" +
-                "id=" + id +
-                ", Gname='" + Gname + '\'' +
-                ", Gnum='" + Gnum + '\'' +
-                ", Guprice='" + Guprice + '\'' +
-                ", Goplace='" + Goplace + '\'' +
-                ", GMdate='" + GMdate + '\'' +
+                "mdate='" + mdate + '\'' +
+                ", oplace='" + oplace + '\'' +
+                ", uprice='" + uprice + '\'' +
+                ", num='" + num + '\'' +
+                ", name='" + name + '\'' +
+                ", id=" + id +
                 '}';
     }
 }
