@@ -3,14 +3,14 @@ package app.models;
 /**
  * Created by cjl20 on 2016/1/3.
  */
-public class AddUserStatus {
+public class UpdateUserStatus {
 
     //错误码
     private String msgCode;
     //结果
     private String result;
 
-    public AddUserStatus(String msgCode, String result) {
+    public UpdateUserStatus(String msgCode, String result) {
         this.msgCode = msgCode;
         this.result = result;
     }
