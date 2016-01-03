@@ -20,7 +20,7 @@ public class ManageUser {
     @Column(name = "MUname", columnDefinition = "VARCHAR(50)", length = 50)
     private String name;
 
-    @Column(name = "MUphone", columnDefinition = "VARCHAR(11)")
+    @Column(name = "MUphone", columnDefinition = "VARCHAR(11)",length = 11)
     private String phone;
 
     public ManageUser() {
