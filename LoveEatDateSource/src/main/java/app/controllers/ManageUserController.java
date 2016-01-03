@@ -20,7 +20,7 @@ public class ManageUserController {
     @Autowired
     private ManageUserRepository repository;
 
-    @RequestMapping(name = "/ManageUser/addManageUser", method = RequestMethod.GET)
+    @RequestMapping(value = "/ManageUser/addManageUser", method = RequestMethod.GET)
     public UpdateUserStatus addManageUser(@RequestParam(value = "name") String name, @RequestParam(value = "phone") String phone) {
         UpdateUserStatus updateUserStatus = new UpdateUserStatus("-1", "none");
         try {
@@ -39,13 +39,13 @@ public class ManageUserController {
         return updateUserStatus;
     }
 
-    @RequestMapping(name = "/ManageUser/addOpenIdToManageUser", method = RequestMethod.GET)
+    @RequestMapping(value = "/ManageUser/addOpenIdToManageUser", method = RequestMethod.GET)
     public UpdateUserStatus addOpenIdToManageUser(@RequestParam(value = "Id") Long id, @RequestParam(value = "OpenId") String OpenId) {
         UpdateUserStatus updateUserStatus = new UpdateUserStatus("-1", "none");
         try {
             if (repository.exists(id)) {
                 ManageUser manageUser = repository.findOne(id);
-                manageUser.setOpenId(OpenId);
+                manageUser.setOpenid(OpenId);
                 repository.save(manageUser);
                 updateUserStatus.setMsgCode("1");
                 updateUserStatus.setResult("successful");
@@ -59,7 +59,7 @@ public class ManageUserController {
         return updateUserStatus;
     }
 
-    @RequestMapping(name = "/ManageUser/RemoveManageUser", method = RequestMethod.GET)
+    @RequestMapping(value = "/ManageUser/RemoveManageUser", method = RequestMethod.GET)
     public UpdateUserStatus RemoveManageUser(@RequestParam(value = "Id") Long id) {
         UpdateUserStatus updateUserStatus = new UpdateUserStatus("-1", "none");
         try {

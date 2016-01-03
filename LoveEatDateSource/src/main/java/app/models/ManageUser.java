@@ -5,7 +5,7 @@ import javax.persistence.*;
 /**
  * Created by cjl20 on 2016/1/3.
  */
-@Table(name = "ManageUserTable")
+@Table(name = "Manage_User_Table")
 @Entity
 public class ManageUser {
 
@@ -15,12 +15,12 @@ public class ManageUser {
     private Long id;
 
     @Column(name = "MUopenid", columnDefinition = "VARCHAR(100)", length = 100)
-    private String OpenId;
+    private String openid;
 
     @Column(name = "MUname", columnDefinition = "VARCHAR(50)", length = 50)
     private String name;
 
-    @Column(name = "MUphone", columnDefinition = "VARCHAR(11)",length = 11)
+    @Column(name = "MUphone", columnDefinition = "VARCHAR(11)", length = 11)
     private String phone;
 
     public ManageUser() {
@@ -31,8 +31,8 @@ public class ManageUser {
         this.phone = phone;
     }
 
-    public ManageUser(String openId, String name, String phone) {
-        OpenId = openId;
+    public ManageUser(String openid, String name, String phone) {
+        this.openid = openid;
         this.name = name;
         this.phone = phone;
     }
@@ -45,12 +45,12 @@ public class ManageUser {
         this.id = id;
     }
 
-    public String getOpenId() {
-        return OpenId;
+    public String getOpenid() {
+        return openid;
     }
 
-    public void setOpenId(String openId) {
-        OpenId = openId;
+    public void setOpenid(String openid) {
+        this.openid = openid;
     }
 
     public String getName() {
@@ -67,15 +67,5 @@ public class ManageUser {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    @Override
-    public String toString() {
-        return "ManageUser{" +
-                "id=" + id +
-                ", OpenId='" + OpenId + '\'' +
-                ", name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
     }
 }

@@ -9,4 +9,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface ManageUserRepository extends CrudRepository<ManageUser, Long> {
 
     ManageUser findByNameAndPhone(String name, String Phone);
+
+    ManageUser findByOpenid(String OpenID);
 }
