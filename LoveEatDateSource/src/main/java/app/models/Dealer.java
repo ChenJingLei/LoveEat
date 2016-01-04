@@ -1,5 +1,7 @@
 package app.models;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 /**
@@ -10,7 +12,8 @@ import javax.persistence.*;
 public class Dealer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//主键自动添加
-
+//    @GenericGenerator(name="idGenerator", strategy="uuid") //这个是hibernate的注解/生成32位UUID
+//    @GeneratedValue(generator="idGenerator")
     @Column(name = "Did", columnDefinition = "INT")
     private Long id;
 
@@ -20,7 +23,7 @@ public class Dealer {
     @Column(name = "Dname", columnDefinition = "VARCHAR(50)", length = 50)
     private String name;
 
-    @Column(name = "Dphone", columnDefinition = "VARCHAR(11)",length = 11)
+    @Column(name = "Dphone", columnDefinition = "VARCHAR(11)", length = 11)
     private String phone;
 
     public Dealer() {

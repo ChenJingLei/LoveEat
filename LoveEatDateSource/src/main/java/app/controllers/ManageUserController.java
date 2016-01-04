@@ -6,28 +6,25 @@ import app.repositories.ManageUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by cjl20 on 2016/1/3.
  */
 @RestController
+@RequestMapping("/ManageUser")
 public class ManageUserController {
 
     @Autowired
     private ManageUserRepository repository;
 
-    @RequestMapping(value = "/ManageUser/addManageUser", method = RequestMethod.GET)
-    public UpdateUserStatus addManageUser(@RequestParam(value = "name") String name, @RequestParam(value = "phone") String phone) {
-        UpdateUserStatus updateUserStatus = new UpdateUserStatus("-1", "none");
+    @RequestMapping(value = "/addManageUser", method = RequestMethod.POST)
+    public UpdateUserStatus addManageUser(@RequestBody ManageUser paramUser) {
+        UpdateUserStatus updateUserStatus = new UpdateUserStatus();
         try {
-            ManageUser manageUser = new ManageUser(name, phone);
-            repository.save(manageUser);
+            repository.save(paramUser);
             updateUserStatus.setMsgCode("1");
-            updateUserStatus.setResult(repository.findByNameAndPhone(name, phone).getId().toString());
+            updateUserStatus.setResult(repository.findByNameAndPhone(paramUser.getName(), paramUser.getPhone()).getId().toString());
         } catch (DataIntegrityViolationException e) {
             updateUserStatus.setMsgCode("-1");
             updateUserStatus.setResult("data error");
@@ -39,13 +36,14 @@ public class ManageUserController {
         return updateUserStatus;
     }
 
-    @RequestMapping(value = "/ManageUser/addOpenIdToManageUser", method = RequestMethod.GET)
-    public UpdateUserStatus addOpenIdToManageUser(@RequestParam(value = "Id") Long id, @RequestParam(value = "OpenId") String OpenId) {
-        UpdateUserStatus updateUserStatus = new UpdateUserStatus("-1", "none");
+    @RequestMapping(value = "/addOpenIdToManageUser", method = RequestMethod.POST)
+    public UpdateUserStatus addOpenIdToManageUser(@RequestBody ManageUser paramUser) {
+        UpdateUserStatus updateUserStatus = new UpdateUserStatus();
         try {
-            if (repository.exists(id)) {
-                ManageUser manageUser = repository.findOne(id);
-                manageUser.setOpenid(OpenId);
+            if (repository.exists(paramUser.getId())) {
+                ManageUser manageUser = repository.findOne(paramUser.getId());
+                manageUser.setOpenid(paramUser.getOpenid());
+                System.out.println(manageUser.toString());
                 repository.save(manageUser);
                 updateUserStatus.setMsgCode("1");
                 updateUserStatus.setResult("successful");
@@ -59,7 +57,7 @@ public class ManageUserController {
         return updateUserStatus;
     }
 
-    @RequestMapping(value = "/ManageUser/RemoveManageUser", method = RequestMethod.GET)
+    @RequestMapping(value = "/RemoveManageUser", method = RequestMethod.DELETE)
     public UpdateUserStatus RemoveManageUser(@RequestParam(value = "Id") Long id) {
         UpdateUserStatus updateUserStatus = new UpdateUserStatus("-1", "none");
         try {

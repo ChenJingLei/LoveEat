@@ -10,6 +10,9 @@ public class UpdateUserStatus {
     //结果
     private String result;
 
+    public UpdateUserStatus() {
+    }
+
     public UpdateUserStatus(String msgCode, String result) {
         this.msgCode = msgCode;
         this.result = result;

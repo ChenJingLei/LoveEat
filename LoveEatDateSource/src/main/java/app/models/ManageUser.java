@@ -1,16 +1,22 @@
 package app.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 /**
  * Created by cjl20 on 2016/1/3.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "Manage_User_Table")
 @Entity
 public class ManageUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//主键自动添加
+//    @GenericGenerator(name="idGenerator", strategy="uuid") //这个是hibernate的注解/生成32位UUID
+//    @GeneratedValue(generator="idGenerator")
     @Column(name = "MUid", columnDefinition = "INT")
     private Long id;
 
@@ -20,7 +26,7 @@ public class ManageUser {
     @Column(name = "MUname", columnDefinition = "VARCHAR(50)", length = 50)
     private String name;
 
-    @Column(name = "MUphone", columnDefinition = "VARCHAR(11)",length = 11)
+    @Column(name = "MUphone", columnDefinition = "VARCHAR(11)", length = 11)
     private String phone;
 
     public ManageUser() {

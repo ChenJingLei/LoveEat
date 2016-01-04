@@ -11,6 +11,7 @@
     <modules>
         <module>ManageUserAuthentication</module>
         <module>LoveEatDateSource</module>
+        <module>WeiXinMessageProcess</module>
     </modules>
 
     <parent>
