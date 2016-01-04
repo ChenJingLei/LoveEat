@@ -10,6 +10,6 @@ public interface ManageUserRepository extends CrudRepository<ManageUser, String>
 
     ManageUser findByNameAndPhone(String name, String Phone);
 
-    ManageUser findByOpenid(String OpenID);
+    ManageUser findByOpenid(String Openid);
 
 }

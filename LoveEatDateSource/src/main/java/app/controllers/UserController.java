@@ -30,35 +30,36 @@ public class UserController {
     public IdentifyUserStatus IdentifyUser(@RequestParam(value = "OpenId") String OpenId) {
         IdentifyUserStatus identifyUserStatus = new IdentifyUserStatus();
         IdentifyUser identifyUser = new IdentifyUser();
-        int identification = 0;
-
+        identifyUserStatus.setMsgCode("1");
         try {
             ManageUser manageUser = manageUserRepository.findByOpenid(OpenId);
             Dealer dealer = dealerRepository.findByOpenid(OpenId);
 
             if (dealer != null) {
+
                 identifyUser.setOpenid(OpenId);
-                identifyUser.setIdentification(identification++);
+                identifyUser.setIdentification(1);
                 identifyUser.setName(dealer.getName());
                 identifyUser.setPhone(dealer.getPhone());
             }
             if (manageUser != null) {
                 identifyUser.setOpenid(OpenId);
-                identifyUser.setIdentification(identification++);
+                identifyUser.setIdentification(2);
                 identifyUser.setName(manageUser.getName());
                 identifyUser.setPhone(manageUser.getPhone());
             }
             if (manageUser == null && dealer == null) {
                 identifyUserStatus.setMsgCode("0");
                 identifyUserStatus.setResult(null);
-            } else {
-                identifyUserStatus.setMsgCode("1");
-                identifyUserStatus.setResult(identifyUser);
+            } else if (manageUser != null && dealer != null){
+                identifyUser.setIdentification(3);
+
             }
         } catch (Exception e) {
             identifyUserStatus.setMsgCode("-1");
             identifyUserStatus.setResult(identifyUser);
         }
+        identifyUserStatus.setResult(identifyUser);
         return identifyUserStatus;
     }
 }

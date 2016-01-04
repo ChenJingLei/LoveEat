@@ -50,4 +50,14 @@ public class IdentifyUser {
     public void setIdentification(int identification) {
         this.identification = identification;
     }
+
+    @Override
+    public String toString() {
+        return "IdentifyUser{" +
+                "Openid='" + Openid + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", identification=" + identification +
+                '}';
+    }
 }

@@ -5,12 +5,13 @@ package app.models;
  */
 public class IdentifyUserStatus {
     String msgCode;
-    Object result;
+    IdentifyUser result;
 
     public IdentifyUserStatus() {
     }
 
-    public IdentifyUserStatus(String msgCode, Object result) {
+
+    public IdentifyUserStatus(String msgCode, IdentifyUser result) {
         this.msgCode = msgCode;
         this.result = result;
     }
@@ -23,11 +24,19 @@ public class IdentifyUserStatus {
         this.msgCode = msgCode;
     }
 
-    public Object getResult() {
+    public IdentifyUser getResult() {
         return result;
     }
 
-    public void setResult(Object result) {
+    public void setResult(IdentifyUser result) {
         this.result = result;
+    }
+
+    @Override
+    public String toString() {
+        return "IdentifyUserStatus{" +
+                "msgCode='" + msgCode + '\'' +
+                ", result=" + result +
+                '}';
     }
 }
