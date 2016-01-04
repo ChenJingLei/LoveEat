@@ -17,9 +17,18 @@ import org.springframework.web.client.RestTemplate;
 public class AddDealerController {
     @RequestMapping(value = "/addDealer", method = RequestMethod.POST)
     public UpdateUserStatus addInfoToDealer(@RequestBody Dealer paramDealer) {
-        RestTemplate restTemplate = new RestTemplate();
-        UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8090/Dealer/addDealer", paramDealer, UpdateUserStatus.class);
-        return updateUserStatus;
+            RestTemplate restTemplate = new RestTemplate();
+            UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8090/Dealer/addDealer", paramDealer, UpdateUserStatus.class);
+            return updateUserStatus;
+
+//        if (paramDealer.getPhone().toString().matches("/^1[3|4|5|8][0-9]\\d{4,8}$/")) {
+//            RestTemplate restTemplate = new RestTemplate();
+//            UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8090/Dealer/addDealer", paramDealer, UpdateUserStatus.class);
+//            return updateUserStatus;
+//        }
+//        else {
+//            return new UpdateUserStatus("-1","phone is error");
+//        }
     }
 
     @RequestMapping(value = "/addManager", method = RequestMethod.POST)
@@ -37,9 +46,9 @@ public class AddDealerController {
     }
 
     @RequestMapping(value = "/addOpenIdToDealer",method = RequestMethod.POST)
-    public UpdateUserStatus addOpenIdToDealer(@RequestBody ManageUser paramManager){
+    public UpdateUserStatus addOpenIdToDealer(@RequestBody Dealer paramDealer){
         RestTemplate restTemplate = new RestTemplate();
-        UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8090/Dealer/addOpenIdToDealer",paramManager,UpdateUserStatus.class);
+        UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8090/Dealer/addOpenIdToDealer",paramDealer,UpdateUserStatus.class);
         return updateUserStatus;
     }
 
