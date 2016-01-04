@@ -12,6 +12,7 @@
         <module>LoveEatDateSource</module>
         <module>WeiXinMessageProcess</module>
         <module>EntityClass</module>
+        <module>UserManage</module>
     </modules>
 
     <parent>

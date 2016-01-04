@@ -1,11 +1,12 @@
 package app.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * Created by HeZYSaaaaln on 2016/1/3.
  */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Dealer {
 
     private String id;
