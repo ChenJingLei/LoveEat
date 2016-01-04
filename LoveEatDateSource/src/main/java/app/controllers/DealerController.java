@@ -1,66 +1,68 @@
 package app.controllers;
 
+import app.models.Dealer;
 import app.models.UpdateUserStatus;
-import app.models.ManageUser;
-import app.repositories.ManageUserRepository;
+import app.repositories.DealerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Created by cjl20 on 2016/1/3.
+ * Created by HeZYSaaaaln on 2016/1/4.
  */
+
 @RestController
-@RequestMapping("/ManageUser")
-public class ManageUserController {
-
+@RequestMapping("/Dealer")
+public class DealerController {
     @Autowired
-    private ManageUserRepository repository;
+    private DealerRepository repository;
 
-    @RequestMapping(value = "/addManageUser", method = RequestMethod.POST)
-    public UpdateUserStatus addManageUser(@RequestBody ManageUser paramUser) {
+    @RequestMapping(value = "/addDealer",method = RequestMethod.POST)
+    public UpdateUserStatus addDealer (@RequestBody Dealer paramDealer){
         UpdateUserStatus updateUserStatus = new UpdateUserStatus();
         try {
-            repository.save(paramUser);
+            System.out.println(paramDealer.toString());
+            repository.save(paramDealer);
             updateUserStatus.setMsgCode("1");
-            updateUserStatus.setResult(repository.findByNameAndPhone(paramUser.getName(), paramUser.getPhone()).getId());
-        } catch (DataIntegrityViolationException e) {
+            updateUserStatus.setResult(repository.findByNameAndPhone(paramDealer.getName(), paramDealer.getPhone()).getId());
+        }catch (DataIntegrityViolationException e) {
             updateUserStatus.setMsgCode("-1");
             updateUserStatus.setResult("data error");
-        } catch (IncorrectResultSizeDataAccessException e) {
+        }catch (IncorrectResultSizeDataAccessException e){
             updateUserStatus.setMsgCode("0");
             updateUserStatus.setResult("user already exists");
         }
         return updateUserStatus;
     }
 
-    @RequestMapping(value = "/addOpenIdToManageUser", method = RequestMethod.POST)
-    public UpdateUserStatus addOpenIdToManageUser(@RequestBody ManageUser paramUser) {
+    @RequestMapping(value = "/addOpenIdToDealer", method = RequestMethod.POST)
+    public UpdateUserStatus addOpenIdToDealer(@RequestBody Dealer paramDealer) {
         UpdateUserStatus updateUserStatus = new UpdateUserStatus();
-        try {
-            if (repository.exists(paramUser.getId())) {
-                ManageUser manageUser = repository.findOne(paramUser.getId());
-                manageUser.setOpenid(paramUser.getOpenid());
-                System.out.println(manageUser.toString());
-                repository.save(manageUser);
+        try{
+            if (repository.exists(paramDealer.getId())) {
+                Dealer dealer = repository.findOne(paramDealer.getId());
+                dealer.setOpenid(paramDealer.getOpenid());
+                System.out.println(dealer.toString());
+                repository.save(dealer);
                 updateUserStatus.setMsgCode("1");
                 updateUserStatus.setResult("successful");
-            } else {
+            }else {
                 updateUserStatus.setMsgCode("0");
                 updateUserStatus.setResult("user is not exists");
             }
-        } catch (Exception e) {
+        }catch (Exception e){
             updateUserStatus.setResult("failed:" + e.getMessage());
         }
         return updateUserStatus;
-    }
+        }
 
-    @RequestMapping(value = "/RemoveManageUser/{id}", method = RequestMethod.DELETE)
-    public UpdateUserStatus RemoveManageUser(@PathVariable("id") String id) {
+    @RequestMapping(value = "/RemoveDealer/{id}", method = RequestMethod.DELETE)
+    public UpdateUserStatus RemoveDealer(@PathVariable("id") String id) {
         UpdateUserStatus updateUserStatus = new UpdateUserStatus();
         try {
             if (repository.exists(id)) {
+                System.out.println(id);
                 repository.delete(id);
                 updateUserStatus.setMsgCode("1");
                 updateUserStatus.setResult("successful");
@@ -68,9 +70,10 @@ public class ManageUserController {
                 updateUserStatus.setMsgCode("0");
                 updateUserStatus.setResult("user is not exists");
             }
-        } catch (Exception e) {
+        }catch (Exception e) {
             updateUserStatus.setResult("failed" + e.getMessage());
         }
         return updateUserStatus;
     }
 }
+

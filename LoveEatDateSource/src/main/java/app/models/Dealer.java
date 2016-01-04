@@ -30,6 +30,11 @@ public class Dealer {
     public Dealer() {
     }
 
+    public Dealer(String name, String phone) {
+        this.name = name;
+        this.phone = phone;
+    }
+
     public Dealer(String openid, String name, String phone) {
         this.openid = openid;
         this.name = name;

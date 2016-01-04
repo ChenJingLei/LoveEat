@@ -23,17 +23,21 @@ public class OrderForm {
     @Column(name = "OFnum", columnDefinition = "INT")
     private Long num;
 
-    @Column(name = "OFaddress", columnDefinition = "INT")
+    @Column(name = "OFaddress", columnDefinition = "VARCHAR(100)",length = 100)
     private String address;
+
+    @Column(name = "OFdatetime", columnDefinition = "DATETIME")   //限还时间
+    private String datetime;
 
     public OrderForm() {
     }
 
-    public OrderForm(Long gid, Long did, Long num, String address) {
+    public OrderForm(Long gid, Long did, Long num, String address, String datetime) {
         this.gid = gid;
         this.did = did;
         this.num = num;
         this.address = address;
+        this.datetime = datetime;
     }
 
     public Long getOfid() {
@@ -76,6 +80,14 @@ public class OrderForm {
         this.address = address;
     }
 
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
+    }
+
     @Override
     public String toString() {
         return "OrderForm{" +
@@ -84,6 +96,7 @@ public class OrderForm {
                 ", did=" + did +
                 ", num=" + num +
                 ", address='" + address + '\'' +
+                ", datetime='" + datetime + '\'' +
                 '}';
     }
 }
