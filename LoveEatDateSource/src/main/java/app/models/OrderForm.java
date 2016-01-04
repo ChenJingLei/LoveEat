@@ -7,6 +7,7 @@ import javax.persistence.*;
  */
 @Table(name = "Order_Form_Table")
 @Entity
+
 public class OrderForm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//主键自动添加

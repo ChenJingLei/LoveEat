@@ -9,7 +9,6 @@ import javax.persistence.*;
 public class Goods {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//主键自动添加
-
     @Column(name = "Gid", columnDefinition = "INT")
     private Long id;
 
@@ -25,7 +24,7 @@ public class Goods {
     @Column(name = "Goplace", columnDefinition = "VARCHAR(100)",length = 100)
     private String oplace;
 
-    @Column(name = "Gmdate", columnDefinition = "date")
+    @Column(name = "Gmdate", columnDefinition = "date")   //生产日期
     private String mdate;
 
     public Goods() {

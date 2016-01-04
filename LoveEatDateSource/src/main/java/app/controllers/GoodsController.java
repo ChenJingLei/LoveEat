@@ -27,7 +27,6 @@ public class GoodsController {
         } catch (DataIntegrityViolationException e) {
             updateUserStatus.setMsgCode("-1");
             updateUserStatus.setResult("data error");
-
         } catch (IncorrectResultSizeDataAccessException e) {
             updateUserStatus.setMsgCode("0");
             updateUserStatus.setResult("goods already exists");
