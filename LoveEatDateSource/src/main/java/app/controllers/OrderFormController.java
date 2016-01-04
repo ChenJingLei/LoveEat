@@ -36,12 +36,12 @@ public class OrderFormController {
     }
 
     @RequestMapping(value = "/RemoveOrderForm/{ofid}", method = RequestMethod.DELETE)
-    public UpdateUserStatus RemoveGoods(@PathVariable("id") Long id) {
+    public UpdateUserStatus RemoveGoods(@PathVariable("ofid") Long ofid) {
         UpdateUserStatus updateUserStatus = new UpdateUserStatus();
         try {
-            if (repository.exists(id)) {
+            if (repository.exists(ofid)) {
                 System.out.println(" ");
-                repository.delete(id);
+                repository.delete(ofid);
                 updateUserStatus.setMsgCode("1");
                 updateUserStatus.setResult("successful");
             } else {
