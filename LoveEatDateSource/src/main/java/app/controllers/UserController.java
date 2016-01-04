@@ -7,6 +7,7 @@ import app.models.ManageUser;
 import app.repositories.DealerRepository;
 import app.repositories.ManageUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +27,7 @@ public class UserController {
     private DealerRepository dealerRepository;
 
     //识别用户身份
+    @Cacheable(value = "IdentifyUser")
     @RequestMapping(value = "/IdentifyUser", method = RequestMethod.GET)
     public IdentifyUserStatus IdentifyUser(@RequestParam(value = "OpenId") String OpenId) {
         IdentifyUserStatus identifyUserStatus = new IdentifyUserStatus();
