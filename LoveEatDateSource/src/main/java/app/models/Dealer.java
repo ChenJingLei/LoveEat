@@ -1,5 +1,6 @@
 package app.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import javax.persistence.*;
 /**
  * Created by HeZYSaaaaln on 2016/1/3.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "Dealer_Table")
 @Entity
 public class Dealer {

@@ -23,7 +23,7 @@ public class GoodsController {
             System.out.println(paramGoods.toString());
             repository.save(paramGoods);
             updateUserStatus.setMsgCode("1");
-            updateUserStatus.setResult(repository.findByNameAndPlace(paramGoods.getName(), paramGoods.getOplace()).getId().toString());
+            updateUserStatus.setResult(repository.findByNameAndOplace(paramGoods.getName(), paramGoods.getOplace()).getId().toString());
         } catch (DataIntegrityViolationException e) {
             updateUserStatus.setMsgCode("-1");
             updateUserStatus.setResult("data error");

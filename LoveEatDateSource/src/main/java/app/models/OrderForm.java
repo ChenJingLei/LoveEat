@@ -14,11 +14,11 @@ public class OrderForm {
     @Column(name = "OFid", columnDefinition = "INT")
     private Long ofid;
 
-    @Column(name = "Gid", columnDefinition = "INT")
-    private Long gid;
+    @Column(name = "Gid", columnDefinition = "VARCHAR(32)",length = 32)
+    private String gid;
 
-    @Column(name = "Did", columnDefinition = "INT")
-    private Long did;
+    @Column(name = "Did", columnDefinition =  "VARCHAR(32)",length = 32)
+    private String did;
 
     @Column(name = "OFnum", columnDefinition = "INT")
     private Long num;
@@ -32,7 +32,7 @@ public class OrderForm {
     public OrderForm() {
     }
 
-    public OrderForm(Long gid, Long did, Long num, String address, String datetime) {
+    public OrderForm(String gid, String did, Long num, String address, String datetime) {
         this.gid = gid;
         this.did = did;
         this.num = num;
@@ -48,19 +48,19 @@ public class OrderForm {
         this.ofid = ofid;
     }
 
-    public Long getGid() {
+    public String getGid() {
         return gid;
     }
 
-    public void setGid(Long gid) {
+    public void setGid(String gid) {
         this.gid = gid;
     }
 
-    public Long getDid() {
+    public String getDid() {
         return did;
     }
 
-    public void setDid(Long did) {
+    public void setDid(String did) {
         this.did = did;
     }
 

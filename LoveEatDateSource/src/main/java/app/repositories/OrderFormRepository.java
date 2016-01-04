@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
  * Created by HeZYSaaaaln on 2016/1/3.
  */
 public interface OrderFormRepository extends CrudRepository<OrderForm, Long> {
-    OrderForm findByGidAndDid(Long gid, Long did);
+    OrderForm findByGidAndDid(String gid, String did);
 }
