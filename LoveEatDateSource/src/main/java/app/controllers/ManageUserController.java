@@ -57,9 +57,9 @@ public class ManageUserController {
         return updateUserStatus;
     }
 
-    @RequestMapping(value = "/RemoveManageUser", method = RequestMethod.DELETE)
-    public UpdateUserStatus RemoveManageUser(@RequestParam(value = "Id") Long id) {
-        UpdateUserStatus updateUserStatus = new UpdateUserStatus("-1", "none");
+    @RequestMapping(value = "/RemoveManageUser/{id}", method = RequestMethod.DELETE)
+    public UpdateUserStatus RemoveManageUser(@PathVariable("id") Long id) {
+        UpdateUserStatus updateUserStatus = new UpdateUserStatus();
         try {
             if (repository.exists(id)) {
                 repository.delete(id);
