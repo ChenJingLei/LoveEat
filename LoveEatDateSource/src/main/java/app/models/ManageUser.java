@@ -14,11 +14,12 @@ import javax.persistence.*;
 public class ManageUser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)//主键自动添加
-//    @GenericGenerator(name="idGenerator", strategy="uuid") //这个是hibernate的注解/生成32位UUID
-//    @GeneratedValue(generator="idGenerator")
-    @Column(name = "MUid", columnDefinition = "INT")
-    private Long id;
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)//主键自动添加
+    @GenericGenerator(name="idGenerator", strategy="uuid") //这个是hibernate的注解/生成32位UUID
+    @GeneratedValue(generator="idGenerator")
+
+    @Column(name = "MUid", columnDefinition = "VARCHAR(32)",length = 32)
+    private String id;
 
     @Column(name = "MUopenid", columnDefinition = "VARCHAR(100)", length = 100)
     private String openid;
@@ -32,22 +33,22 @@ public class ManageUser {
     public ManageUser() {
     }
 
+    public ManageUser(String name, String phone) {
+        this.name = name;
+        this.phone = phone;
+    }
+
     public ManageUser(String openid, String name, String phone) {
         this.openid = openid;
         this.name = name;
         this.phone = phone;
     }
 
-    public ManageUser(String name, String phone) {
-        this.name = name;
-        this.phone = phone;
-    }
-
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -78,7 +79,7 @@ public class ManageUser {
     @Override
     public String toString() {
         return "ManageUser{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", openid='" + openid + '\'' +
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +

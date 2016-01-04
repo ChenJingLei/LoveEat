@@ -24,7 +24,7 @@ public class ManageUserController {
         try {
             repository.save(paramUser);
             updateUserStatus.setMsgCode("1");
-            updateUserStatus.setResult(repository.findByNameAndPhone(paramUser.getName(), paramUser.getPhone()).getId().toString());
+            updateUserStatus.setResult(repository.findByNameAndPhone(paramUser.getName(), paramUser.getPhone()).getId());
         } catch (DataIntegrityViolationException e) {
             updateUserStatus.setMsgCode("-1");
             updateUserStatus.setResult("data error");
@@ -58,7 +58,7 @@ public class ManageUserController {
     }
 
     @RequestMapping(value = "/RemoveManageUser/{id}", method = RequestMethod.DELETE)
-    public UpdateUserStatus RemoveManageUser(@PathVariable("id") Long id) {
+    public UpdateUserStatus RemoveManageUser(@PathVariable("id") String id) {
         UpdateUserStatus updateUserStatus = new UpdateUserStatus();
         try {
             if (repository.exists(id)) {
