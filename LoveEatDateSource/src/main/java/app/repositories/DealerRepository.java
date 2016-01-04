@@ -9,5 +9,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface DealerRepository extends CrudRepository<Dealer, String> {
     Dealer findByNameAndPhone(String name, String Phone);
 
-    Dealer findByOpenid(String OpenID);
+    Dealer findByOpenid(String OpenId);
 }

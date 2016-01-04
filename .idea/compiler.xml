@@ -24,6 +24,7 @@
         <processorPath useClasspath="true" />
         <module name="EntityClass" />
         <module name="LoveEatDateSource" />
+        <module name="UserManage" />
         <module name="WeiXinMessageProcess" />
       </profile>
     </annotationProcessing>
@@ -32,6 +33,7 @@
       <module name="LoveEat" target="1.6" />
       <module name="LoveEatDateSource" target="1.8" />
       <module name="ManageUserAuthentication" target="1.8" />
+      <module name="UserManage" target="1.6" />
       <module name="WeiXinMessageProcess" target="1.6" />
     </bytecodeTargetLevel>
   </component>

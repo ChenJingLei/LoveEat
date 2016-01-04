@@ -1,10 +1,12 @@
 package app.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * Created by cjl20 on 2016/1/3.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 
 public class ManageUser {
 

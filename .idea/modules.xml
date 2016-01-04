@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/LoveEat.iml" filepath="$PROJECT_DIR$/LoveEat.iml" />
       <module fileurl="file://$PROJECT_DIR$/LoveEatDateSource/LoveEatDateSource.iml" filepath="$PROJECT_DIR$/LoveEatDateSource/LoveEatDateSource.iml" />
       <module fileurl="file://$PROJECT_DIR$/ManageUserAuthentication/ManageUserAuthentication.iml" filepath="$PROJECT_DIR$/ManageUserAuthentication/ManageUserAuthentication.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UserManage/UserManage.iml" filepath="$PROJECT_DIR$/UserManage/UserManage.iml" />
       <module fileurl="file://$PROJECT_DIR$/WeiXinMessageProcess/WeiXinMessageProcess.iml" filepath="$PROJECT_DIR$/WeiXinMessageProcess/WeiXinMessageProcess.iml" />
     </modules>
   </component>
