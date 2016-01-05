@@ -1,15 +1,12 @@
 package app.controllers;
 
-import app.models.ManageUser;
-import app.models.ShowInfo;
 import app.models.UpdateUserStatus;
+import app.models.ManageUser;
 import app.repositories.ManageUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * Created by cjl20 on 2016/1/3.
@@ -75,21 +72,5 @@ public class ManageUserController {
             updateUserStatus.setResult("failed" + e.getMessage());
         }
         return updateUserStatus;
-    }
-
-    @RequestMapping(value = "/FindAll")
-    public ShowInfo FindAll()
-    {
-        List<ManageUser> list = repository.findAll();
-        ShowInfo showInfo = new ShowInfo();
-        try {
-            showInfo.setMsgCode("1");
-            showInfo.setResult("You are correct");
-            showInfo.setList(list);
-        }catch (Exception e){
-            showInfo.setMsgCode("0");
-            showInfo.setResult("You are wrong");
-        }
-        return showInfo;
     }
 }

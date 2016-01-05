@@ -23,6 +23,7 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="EntityClass" />
+        <module name="GoodToDataBase" />
         <module name="LoveEatDateSource" />
         <module name="OrderFormManage" />
         <module name="UserManage" />
@@ -31,6 +32,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="EntityClass" target="1.6" />
+      <module name="GoodToDataBase" target="1.8" />
       <module name="LoveEat" target="1.6" />
       <module name="LoveEatDateSource" target="1.8" />
       <module name="ManageUserAuthentication" target="1.8" />
