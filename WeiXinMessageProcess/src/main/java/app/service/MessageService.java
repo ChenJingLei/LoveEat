@@ -278,7 +278,9 @@ public class MessageService {
                     manageUser.setId(wxMpXmlMessage.getContent());
                     manageUser.setOpenid(wxMpXmlMessage.getFromUserName());
 
-                    UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8080/UserManage/addOpenIdToManageUser", manageUser, UpdateUserStatus.class);
+                    System.out.println(manageUser.toString());
+
+                    UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8080/UserManage/addOpenIdToManager", manageUser, UpdateUserStatus.class);
 
                     if (updateUserStatus.getMsgCode().equals("1")) {
                         IdentifyUserStatus identifyUserStatus = IdentifyUser(wxMpXmlMessage.getFromUserName());
