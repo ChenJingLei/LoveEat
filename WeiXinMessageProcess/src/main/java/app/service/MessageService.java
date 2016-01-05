@@ -46,7 +46,10 @@ public class MessageService {
         WxMpMessageHandler voiceHandle = new WxMpMessageHandler() {
             @Override
             public WxMpXmlOutMessage handle(WxMpXmlMessage wxMpXmlMessage, Map<String, Object> map, WxMpService wxMpService, WxSessionManager wxSessionManager) throws WxErrorException {
-                WxMpXmlOutTextMessage message = null;
+                WxMpXmlOutTextMessage message = message = WxMpXmlOutMessage.TEXT().content(wxMpXmlMessage.getRecognition())
+                        .fromUser(wxMpXmlMessage.getToUserName())
+                        .toUser(wxMpXmlMessage.getFromUserName())
+                        .build();
                 if (wxMpXmlMessage.getRecognition().contains("菜单")) {
                     message = WxMpXmlOutMessage.TEXT().content("欢迎你关注本公众号！\n1、管理员认证\n2、经销商认证")
                             .fromUser(wxMpXmlMessage.getToUserName())
@@ -130,7 +133,7 @@ public class MessageService {
 
                 .async(false)
                 .msgType(WxConsts.XML_MSG_VOICE)
-                .handler(restHandler)
+                .handler(voiceHandle)
                 .end()
                 .rule()
                 .async(false)
@@ -274,7 +277,8 @@ public class MessageService {
                     UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8080/UserManage/addOpenIdToManageUser", manageUser, UpdateUserStatus.class);
 
                     if (updateUserStatus.getMsgCode().equals("1")) {
-                        tmessage.setContent("登记成功");
+                        IdentifyUserStatus identifyUserStatus = IdentifyUser(wxMpXmlMessage.getFromUserName());
+                        tmessage.setContent("欢迎您，" + identifyUserStatus.getResult().getName() + "，登记成功\n输入菜单选择需要的功能");
                         session.invalidate();
                     } else {
                         tmessage.setContent(updateUserStatus.getResult());
@@ -289,7 +293,9 @@ public class MessageService {
                     UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8080/UserManage/addOpenIdToDealer", dealer, UpdateUserStatus.class);
 
                     if (updateUserStatus.getMsgCode().equals("1")) {
-                        tmessage.setContent("登记成功");
+                        IdentifyUserStatus identifyUserStatus = IdentifyUser(wxMpXmlMessage.getFromUserName());
+                        tmessage.setContent("欢迎您，" + identifyUserStatus.getResult().getName() + "，登记成功\n" +
+                                "输入菜单选择需要的功能");
                         session.invalidate();
                     } else {
                         tmessage.setContent(updateUserStatus.getResult());
@@ -298,115 +304,6 @@ public class MessageService {
             } catch (Exception e) {
                 return menuhandle(wxMpXmlMessage, wxSessionManager);
             }
-//            try {
-//                WxSession session = wxSessionManager.getSession(wxMpXmlMessage.getFromUserName());
-//                if (session.getAttribute("status").equals("choice")) {
-//                    try {
-//                        int oper = Integer.valueOf(wxMpXmlMessage.getContent());
-//                        if (oper > 0 && oper < 8) {
-//                            if (session.getAttribute("Identification").equals(2)) {
-//
-//                                switch (Integer.valueOf(wxMpXmlMessage.getContent())) {
-//                                    case 1:
-//                                        session.setAttribute("status", "choice1");
-//                                        tmessage.setContent("请输入分销商姓名和手机号，中间用逗号隔开");
-//                                        break;
-//                                    case 2:
-//                                        tmessage.setContent("2");
-//                                        break;
-//                                    case 3:
-//                                        tmessage.setContent("3");
-//                                        break;
-//                                    case 4:
-//                                        tmessage.setContent("4");
-//                                        break;
-//                                    case 5:
-//                                        tmessage.setContent("5");
-//                                        break;
-//                                    case 6:
-//                                        tmessage.setContent("6");
-//                                        break;
-//                                    case 7:
-//                                        tmessage.setContent("7");
-//                                        break;
-//                                    default:
-//                                        return menuhandle(wxMpXmlMessage, wxSessionManager);
-//                                }
-//
-//                            } else if (session.getAttribute("Identification").equals(1)) {
-//
-//                                switch (Integer.valueOf(wxMpXmlMessage.getContent())) {
-//                                    case 1:
-//                                        session.setAttribute("status", "choice1");
-//                                        tmessage.setContent("请输入查询商品名称");
-//                                        break;
-//                                    case 2:
-//                                        tmessage.setContent("2");
-//                                        break;
-//                                    default:
-//                                        return menuhandle(wxMpXmlMessage, wxSessionManager);
-//                                }
-//                            } else if (session.getAttribute("Identification").equals(0)) {
-//                                switch (Integer.valueOf(wxMpXmlMessage.getContent())) {
-//                                    case 1:
-//                                        session.setAttribute("status", "choice1");
-//                                        tmessage.setContent("请输入认证码");
-//                                        break;
-//                                    case 2:
-//                                        session.setAttribute("status", "choice2");
-//                                        tmessage.setContent("请输入认证码");
-//                                        break;
-//                                    default:
-//                                        return menuhandle(wxMpXmlMessage, wxSessionManager);
-//                                }
-//                            }
-//                        } else {
-//                            return menuhandle(wxMpXmlMessage, wxSessionManager);
-//                        }
-//                    } catch (NumberFormatException e) {
-//                        return menuhandle(wxMpXmlMessage, wxSessionManager);
-//                    }
-//                } else if (session.getAttribute("status").equals("choice1")) {
-//                    if (session.getAttribute("Identification").equals(2)) {
-//                        String[] contents = wxMpXmlMessage.getContent().split(",");
-//
-//                        RestTemplate restTemplate = new RestTemplate();
-//
-//                        Dealer dealer = new Dealer(contents[0], contents[1]);
-//
-//                        UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8080/UserManage/addDealer", dealer, UpdateUserStatus.class);
-//
-//                        if (updateUserStatus.getMsgCode().equals(1)) {
-//                            tmessage.setContent("登记成功\n分销商认证码：" + updateUserStatus.getResult());
-//                            session.invalidate();
-//                        } else {
-//                            tmessage.setContent(updateUserStatus.getResult());
-//                        }
-//
-//                    } else if (session.getAttribute("Identification").equals(1)) {
-//
-//                    } else if (session.getAttribute("Identification").equals(0)) {
-//                        RestTemplate restTemplate = new RestTemplate();
-//
-//                        Dealer dealer = new Dealer();
-//                        dealer.setId(wxMpXmlMessage.getContent());
-//                        dealer.setOpenid(wxMpXmlMessage.getFromUserName());
-//
-//                        UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8080/UserManage/addDealer", dealer, UpdateUserStatus.class);
-//
-//                        if (updateUserStatus.getMsgCode().equals(1)) {
-//                            tmessage.setContent("登记成功");
-//                            session.invalidate();
-//                        } else {
-//                            tmessage.setContent(updateUserStatus.getResult());
-//                        }
-//                    }
-//                } else {
-//                    return menuhandle(wxMpXmlMessage, wxSessionManager);
-//                }
-//            } catch (Exception e) {
-//                return menuhandle(wxMpXmlMessage, wxSessionManager);
-//            }
             return tmessage;
         }
     };
@@ -447,7 +344,15 @@ public class MessageService {
         WxSession session = wxSessionManager.getSession(wxMpXmlMessage.getFromUserName());
         session.setAttribute("status", "choice");
         session.setAttribute("Identification", identifyUserStatus.getResult().getIdentification());
+        System.out.println(identifyUserStatus.getResult().toString());
         return emessage;
+    }
+
+    public IdentifyUserStatus IdentifyUser(String OpenId) {
+        //识别用户身份
+        RestTemplate restTemplate = new RestTemplate();
+        IdentifyUserStatus identifyUserStatus = restTemplate.getForObject("http://localhost:8090/User/IdentifyUser?OpenId=" + OpenId, IdentifyUserStatus.class);
+        return identifyUserStatus;
     }
 
 
