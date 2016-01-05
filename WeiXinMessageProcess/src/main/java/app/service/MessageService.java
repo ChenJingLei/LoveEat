@@ -197,6 +197,7 @@ public class MessageService {
                     .fromUser(wxMpXmlMessage.getToUserName())
                     .toUser(wxMpXmlMessage.getFromUserName())
                     .build();
+
             WxSession session = wxSessionManager.getSession(wxMpXmlMessage.getFromUserName());
             try {
                 if (session.getAttribute("status").equals("choice")) {
