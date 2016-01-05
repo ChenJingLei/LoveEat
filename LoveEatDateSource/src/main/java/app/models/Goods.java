@@ -27,6 +27,9 @@ public class Goods {
     @Column(name = "Gmdate", columnDefinition = "date")   //生产日期
     private String mdate;
 
+    @Column(name = "Gcategory", columnDefinition = "VARCHAR(50)",length = 50)   //生产日期
+    private String category;
+
     public Goods() {
 
     }
@@ -37,6 +40,23 @@ public class Goods {
         this.uprice = uprice;
         this.oplace = oplace;
         this.mdate = mdate;
+    }
+
+    public Goods(String name, Long num, String uprice, String oplace, String mdate, String category) {
+        this.name = name;
+        this.num = num;
+        this.uprice = uprice;
+        this.oplace = oplace;
+        this.mdate = mdate;
+        this.category = category;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public Long getId() {
@@ -90,12 +110,13 @@ public class Goods {
     @Override
     public String toString() {
         return "Goods{" +
-                "mdate='" + mdate + '\'' +
-                ", oplace='" + oplace + '\'' +
-                ", uprice='" + uprice + '\'' +
-                ", num=" + num +
+                "id=" + id +
                 ", name='" + name + '\'' +
-                ", id=" + id +
+                ", num=" + num +
+                ", uprice='" + uprice + '\'' +
+                ", oplace='" + oplace + '\'' +
+                ", mdate='" + mdate + '\'' +
+                ", category='" + category + '\'' +
                 '}';
     }
 }

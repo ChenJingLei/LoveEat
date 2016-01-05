@@ -1,12 +1,15 @@
 package app.controllers;
 
 import app.models.Dealer;
+import app.models.ShowInfo;
 import app.models.UpdateUserStatus;
 import app.repositories.DealerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by HeZYSaaaaln on 2016/1/4.
@@ -31,7 +34,7 @@ public class DealerController {
             updateUserStatus.setResult("data error");
         }catch (IncorrectResultSizeDataAccessException e){
             updateUserStatus.setMsgCode("0");
-            updateUserStatus.setResult("user already exists");
+            updateUserStatus.setResult("dealer already exists");
         }
         return updateUserStatus;
     }
@@ -49,7 +52,7 @@ public class DealerController {
                 updateUserStatus.setResult("successful");
             }else {
                 updateUserStatus.setMsgCode("0");
-                updateUserStatus.setResult("user is not exists");
+                updateUserStatus.setResult("dealer is not exists");
             }
         }catch (Exception e){
             updateUserStatus.setResult("failed:" + e.getMessage());
@@ -68,12 +71,28 @@ public class DealerController {
                 updateUserStatus.setResult("successful");
             } else {
                 updateUserStatus.setMsgCode("0");
-                updateUserStatus.setResult("user is not exists");
+                updateUserStatus.setResult("dealer is not exists");
             }
         }catch (Exception e) {
             updateUserStatus.setResult("failed" + e.getMessage());
         }
         return updateUserStatus;
+    }
+
+    @RequestMapping(value = "/FindAll")
+    public ShowInfo FindAll()
+    {
+        List<Dealer> list = repository.findAll();
+        ShowInfo showInfo = new ShowInfo();
+        try {
+            showInfo.setMsgCode("1");
+            showInfo.setResult("Success");
+            showInfo.setList(list);
+        }catch (Exception e){
+            showInfo.setMsgCode("0");
+            showInfo.setResult("Failed");
+        }
+        return showInfo;
     }
 }
 
