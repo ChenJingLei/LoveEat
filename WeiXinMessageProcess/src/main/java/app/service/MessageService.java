@@ -81,7 +81,7 @@ public class MessageService {
 //
 //                ManageUser manageUser = new ManageUser("陈靖磊","13004165668");
 //
-//                UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8091/ManageUser/addManageUser", manageUser, UpdateUserStatus.class);
+//                UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8090/ManageUser/addManageUser", manageUser, UpdateUserStatus.class);
 //                System.out.println(updateUserStatus.toString());
 
                 return message;
@@ -423,7 +423,7 @@ public class MessageService {
 
         //识别用户身份
         RestTemplate restTemplate = new RestTemplate();
-        IdentifyUserStatus identifyUserStatus = restTemplate.getForObject("http://localhost:8091/User/IdentifyUser?OpenId=" + wxMpXmlMessage.getFromUserName(), IdentifyUserStatus.class);
+        IdentifyUserStatus identifyUserStatus = restTemplate.getForObject("http://localhost:8090/User/IdentifyUser?OpenId=" + wxMpXmlMessage.getFromUserName(), IdentifyUserStatus.class);
 
         WxMpXmlOutTextMessage emessage
                 = WxMpXmlOutMessage.TEXT()
