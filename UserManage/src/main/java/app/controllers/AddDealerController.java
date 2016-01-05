@@ -43,6 +43,4 @@ public class AddDealerController {
         return updateUserStatus;
     }
 
-
-
 }

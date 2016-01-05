@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EntityClass/EntityClass.iml" filepath="$PROJECT_DIR$/EntityClass/EntityClass.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GoodToDataBase/GoodToDataBase.iml" filepath="$PROJECT_DIR$/GoodToDataBase/GoodToDataBase.iml" />
       <module fileurl="file://$PROJECT_DIR$/LoveEat.iml" filepath="$PROJECT_DIR$/LoveEat.iml" />
       <module fileurl="file://$PROJECT_DIR$/LoveEatDateSource/LoveEatDateSource.iml" filepath="$PROJECT_DIR$/LoveEatDateSource/LoveEatDateSource.iml" />
       <module fileurl="file://$PROJECT_DIR$/OrderFormManage/OrderFormManage.iml" filepath="$PROJECT_DIR$/OrderFormManage/OrderFormManage.iml" />
