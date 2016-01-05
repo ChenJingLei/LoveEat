@@ -37,9 +37,9 @@ public class AddDealerController {
     }
 
     @RequestMapping(value = "/addOpenIdToDealer",method = RequestMethod.POST)
-    public UpdateUserStatus addOpenIdToDealer(@RequestBody ManageUser paramManager){
+    public UpdateUserStatus addOpenIdToDealer(@RequestBody Dealer paramDealer){
         RestTemplate restTemplate = new RestTemplate();
-        UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8090/Dealer/addOpenIdToDealer",paramManager,UpdateUserStatus.class);
+        UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8090/Dealer/addOpenIdToDealer",paramDealer,UpdateUserStatus.class);
         return updateUserStatus;
     }
 
