@@ -162,7 +162,6 @@ public class MessageService {
                 }
                 RestTemplate restTemplate = new RestTemplate();
                 if (session.getAttribute("status").equals("choice1")) {
-
                     Dealer dealer = new Dealer(contents[0], contents[1]);
                     UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8080/UserManage/addDealer", dealer, UpdateUserStatus.class);
                     System.out.println(updateUserStatus.toString());
