@@ -17,38 +17,29 @@ import org.springframework.web.client.RestTemplate;
 public class AddDealerController {
     @RequestMapping(value = "/addDealer", method = RequestMethod.POST)
     public UpdateUserStatus addInfoToDealer(@RequestBody Dealer paramDealer) {
-            RestTemplate restTemplate = new RestTemplate();
-            UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8090/Dealer/addDealer", paramDealer, UpdateUserStatus.class);
-            return updateUserStatus;
-
-//        if (paramDealer.getPhone().toString().matches("/^1[3|4|5|8][0-9]\\d{4,8}$/")) {
-//            RestTemplate restTemplate = new RestTemplate();
-//            UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8090/Dealer/addDealer", paramDealer, UpdateUserStatus.class);
-//            return updateUserStatus;
-//        }
-//        else {
-//            return new UpdateUserStatus("-1","phone is error");
-//        }
+        RestTemplate restTemplate = new RestTemplate();
+        UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8091/Dealer/addDealer", paramDealer, UpdateUserStatus.class);
+        return updateUserStatus;
     }
 
     @RequestMapping(value = "/addManager", method = RequestMethod.POST)
     public UpdateUserStatus addInfoToManager(@RequestBody ManageUser paramManager) {
         RestTemplate restTemplate = new RestTemplate();
-        UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8090/ManageUser/addManageUser", paramManager, UpdateUserStatus.class);
+        UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8091/ManageUser/addManageUser", paramManager, UpdateUserStatus.class);
         return updateUserStatus;
     }
 
     @RequestMapping(value = "/addOpenIdToManager",method = RequestMethod.POST)
     public UpdateUserStatus addOpenIdToManager(@RequestBody ManageUser paramManager){
         RestTemplate restTemplate = new RestTemplate();
-        UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8090/ManageUser/addOpenIdToManageUser",paramManager,UpdateUserStatus.class);
+        UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8091/ManageUser/addOpenIdToManageUser",paramManager,UpdateUserStatus.class);
         return updateUserStatus;
     }
 
     @RequestMapping(value = "/addOpenIdToDealer",method = RequestMethod.POST)
-    public UpdateUserStatus addOpenIdToDealer(@RequestBody Dealer paramDealer){
+    public UpdateUserStatus addOpenIdToDealer(@RequestBody ManageUser paramManager){
         RestTemplate restTemplate = new RestTemplate();
-        UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8090/Dealer/addOpenIdToDealer",paramDealer,UpdateUserStatus.class);
+        UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8091/Dealer/addOpenIdToDealer",paramManager,UpdateUserStatus.class);
         return updateUserStatus;
     }
 

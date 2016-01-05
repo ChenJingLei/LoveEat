@@ -104,10 +104,30 @@ public class MessageService {
                 .end()
                 .rule()
                 .async(false)
+                .content("1")
+                .handler(choice1handeler)
+                .end()
+                .rule()
+                .async(false)
+                .content("2")
+                .handler(choice2handeler)
+                .end()
+                        //当用户输入姓名，电话时
+                .rule()
+                .async(false)
+                .msgType(WxConsts.XML_MSG_TEXT)
+                .rContent("^[\\u4e00-\\u9fa5A-Za-z0-9]+[，|,][0-9]+$")
+                .handler(registerhandeler)
+                .end()
+
+
+                .rule()
+                .async(false)
                 .msgType(WxConsts.XML_MSG_TEXT)
                 .handler(texthandeler)
                 .end()
                 .rule()
+
                 .async(false)
                 .msgType(WxConsts.XML_MSG_VOICE)
                 .handler(restHandler)
@@ -119,7 +139,55 @@ public class MessageService {
 
     }
 
-    WxMpMessageHandler texthandeler = new WxMpMessageHandler() {
+    WxMpMessageHandler registerhandeler = new WxMpMessageHandler() {
+        @Override
+        public WxMpXmlOutMessage handle(WxMpXmlMessage wxMpXmlMessage, Map<String, Object> map, WxMpService wxMpService, WxSessionManager wxSessionManager) throws WxErrorException {
+
+            WxMpXmlOutTextMessage message
+                    = WxMpXmlOutMessage.TEXT()
+                    .fromUser(wxMpXmlMessage.getToUserName())
+                    .toUser(wxMpXmlMessage.getFromUserName())
+                    .build();
+            WxSession session = wxSessionManager.getSession(wxMpXmlMessage.getFromUserName());
+            try {
+                String content = wxMpXmlMessage.getContent();
+                String[] contents = null;
+                if (content.contains(",")) {
+                    contents = wxMpXmlMessage.getContent().split(",");
+                } else {
+                    contents = wxMpXmlMessage.getContent().split("，");
+                }
+                RestTemplate restTemplate = new RestTemplate();
+                if (session.getAttribute("status").equals("choice1")) {
+
+                    Dealer dealer = new Dealer(contents[0], contents[1]);
+                    UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8080/UserManage/addDealer", dealer, UpdateUserStatus.class);
+                    System.out.println(updateUserStatus.toString());
+                    if (updateUserStatus.getMsgCode().equals("1")) {
+                        message.setContent("登记成功\n分销商认证码：" + updateUserStatus.getResult());
+                        session.invalidate();
+                    } else {
+                        message.setContent(updateUserStatus.getResult());
+                    }
+                } else if (session.getAttribute("status").equals("choice2")) {
+                    ManageUser manageUser = new ManageUser(contents[0], contents[1]);
+                    UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8080/UserManage/addManager", manageUser, UpdateUserStatus.class);
+                    System.out.println(updateUserStatus.toString());
+                    if (updateUserStatus.getMsgCode().equals("1")) {
+                        message.setContent("登记成功\n管理员认证码：" + updateUserStatus.getResult());
+                        session.invalidate();
+                    } else {
+                        message.setContent(updateUserStatus.getResult());
+                    }
+                }
+            } catch (Exception e) {
+                return menuhandle(wxMpXmlMessage, wxSessionManager);
+            }
+            return message;
+        }
+    };
+
+    WxMpMessageHandler choice1handeler = new WxMpMessageHandler() {
         @Override
         public WxMpXmlOutMessage handle(WxMpXmlMessage wxMpXmlMessage, Map<String, Object> map, WxMpService wxMpService, WxSessionManager wxSessionManager) throws WxErrorException {
             WxMpXmlOutTextMessage tmessage
@@ -127,84 +195,20 @@ public class MessageService {
                     .fromUser(wxMpXmlMessage.getToUserName())
                     .toUser(wxMpXmlMessage.getFromUserName())
                     .build();
+            WxSession session = wxSessionManager.getSession(wxMpXmlMessage.getFromUserName());
             try {
-                WxSession session = wxSessionManager.getSession(wxMpXmlMessage.getFromUserName());
                 if (session.getAttribute("status").equals("choice")) {
-                    try {
-                        int oper = Integer.valueOf(wxMpXmlMessage.getContent());
-                        if (oper > 0 && oper < 8) {
-                            if (session.getAttribute("Identification").equals(2)) {
-
-                                switch (Integer.valueOf(wxMpXmlMessage.getContent())) {
-                                    case 1:
-                                        session.setAttribute("status", "choice1");
-                                        tmessage.setContent("请输入分销商姓名和手机号，中间用逗号隔开");
-                                        break;
-                                    case 2:
-                                        tmessage.setContent("2");
-                                        break;
-                                    case 3:
-                                        tmessage.setContent("3");
-                                        break;
-                                    case 4:
-                                        tmessage.setContent("4");
-                                        break;
-                                    case 5:
-                                        tmessage.setContent("5");
-                                        break;
-                                    case 6:
-                                        tmessage.setContent("6");
-                                        break;
-                                    case 7:
-                                        tmessage.setContent("7");
-                                        break;
-                                    default:
-                                        return menuhandle(wxMpXmlMessage, wxSessionManager);
-                                }
-
-                            } else if (session.getAttribute("Identification").equals(1)) {
-
-                                switch (Integer.valueOf(wxMpXmlMessage.getContent())) {
-                                    case 1:
-                                        session.setAttribute("status", "choice1");
-                                        tmessage.setContent("请输入查询商品名称");
-                                        break;
-                                    case 2:
-                                        tmessage.setContent("2");
-                                        break;
-                                    default:
-                                        return menuhandle(wxMpXmlMessage, wxSessionManager);
-                                }
-                            }else if (session.getAttribute("Identification").equals(0)) {
-                                switch (Integer.valueOf(wxMpXmlMessage.getContent())) {
-                                    case 1:
-                                        session.setAttribute("status", "choice1");
-                                        tmessage.setContent("请输入认证码");
-                                        break;
-                                    case 2:
-                                        session.setAttribute("status", "choice2");
-                                        tmessage.setContent("请输入认证码");
-                                        break;
-                                    default:
-                                        return menuhandle(wxMpXmlMessage, wxSessionManager);
-                                }
-                            }
-                        } else {
-                            return menuhandle(wxMpXmlMessage, wxSessionManager);
-                        }
-                    } catch (NumberFormatException e) {
-                        return menuhandle(wxMpXmlMessage, wxSessionManager);
-                    }
-                } else if (session.getAttribute("status").equals("choice1")) {
-                    if (session.getAttribute("Identification").equals(2)) {
-                        String[] contents = wxMpXmlMessage.getContent().split(",");
-
-
-
-                    } else if (session.getAttribute("Identification").equals(1)) {
-
-                    } else if (session.getAttribute("Identification").equals(0)) {
-
+                    session.setAttribute("status", "choice1");
+                    switch (Integer.valueOf(session.getAttribute("Identification").toString())) {
+                        case 0:
+                            tmessage.setContent("请输入认证码");
+                            break;
+                        case 1:
+                            tmessage.setContent("请输入查询商品名称");
+                            break;
+                        case 2:
+                            tmessage.setContent("请输入分销商姓名和手机号，中间用逗号隔开");
+                            break;
                     }
                 } else {
                     return menuhandle(wxMpXmlMessage, wxSessionManager);
@@ -212,6 +216,197 @@ public class MessageService {
             } catch (Exception e) {
                 return menuhandle(wxMpXmlMessage, wxSessionManager);
             }
+            return tmessage;
+        }
+    };
+
+    WxMpMessageHandler choice2handeler = new WxMpMessageHandler() {
+        @Override
+        public WxMpXmlOutMessage handle(WxMpXmlMessage wxMpXmlMessage, Map<String, Object> map, WxMpService wxMpService, WxSessionManager wxSessionManager) throws WxErrorException {
+            WxMpXmlOutTextMessage tmessage
+                    = WxMpXmlOutMessage.TEXT()
+                    .fromUser(wxMpXmlMessage.getToUserName())
+                    .toUser(wxMpXmlMessage.getFromUserName())
+                    .build();
+            WxSession session = wxSessionManager.getSession(wxMpXmlMessage.getFromUserName());
+            try {
+                if (session.getAttribute("status").equals("choice")) {
+                    session.setAttribute("status", "choice2");
+                    switch (Integer.valueOf(session.getAttribute("Identification").toString())) {
+                        case 0:
+                            tmessage.setContent("请输入认证码");
+                            break;
+                        case 1:
+                            tmessage.setContent("进货管理");
+                            break;
+                        case 2:
+                            tmessage.setContent("请输入管理员姓名和手机号，中间用逗号隔开");
+                            break;
+                    }
+                } else {
+                    return menuhandle(wxMpXmlMessage, wxSessionManager);
+                }
+            } catch (Exception e) {
+                return menuhandle(wxMpXmlMessage, wxSessionManager);
+            }
+            return tmessage;
+        }
+    };
+
+
+    WxMpMessageHandler texthandeler = new WxMpMessageHandler() {
+        @Override
+        public WxMpXmlOutMessage handle(WxMpXmlMessage wxMpXmlMessage, Map<String, Object> map, WxMpService wxMpService, WxSessionManager wxSessionManager) throws WxErrorException {
+            System.out.println("text");
+            WxMpXmlOutTextMessage tmessage
+                    = WxMpXmlOutMessage.TEXT()
+                    .fromUser(wxMpXmlMessage.getToUserName())
+                    .toUser(wxMpXmlMessage.getFromUserName())
+                    .build();
+            WxSession session = wxSessionManager.getSession(wxMpXmlMessage.getFromUserName());
+            try {
+                if (session.getAttribute("status").equals("choice1")) {
+                    RestTemplate restTemplate = new RestTemplate();
+                    ManageUser manageUser = new ManageUser();
+                    manageUser.setId(wxMpXmlMessage.getContent());
+                    manageUser.setOpenid(wxMpXmlMessage.getFromUserName());
+
+                    UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8080/UserManage/addOpenIdToManageUser", manageUser, UpdateUserStatus.class);
+
+                    if (updateUserStatus.getMsgCode().equals("1")) {
+                        tmessage.setContent("登记成功");
+                        session.invalidate();
+                    } else {
+                        tmessage.setContent(updateUserStatus.getResult());
+                    }
+
+                } else if (session.getAttribute("status").equals("choice2")) {
+                    RestTemplate restTemplate = new RestTemplate();
+                    Dealer dealer = new Dealer();
+                    dealer.setId(wxMpXmlMessage.getContent());
+                    dealer.setOpenid(wxMpXmlMessage.getFromUserName());
+
+                    UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8080/UserManage/addOpenIdToDealer", dealer, UpdateUserStatus.class);
+
+                    if (updateUserStatus.getMsgCode().equals("1")) {
+                        tmessage.setContent("登记成功");
+                        session.invalidate();
+                    } else {
+                        tmessage.setContent(updateUserStatus.getResult());
+                    }
+                }
+            } catch (Exception e) {
+                return menuhandle(wxMpXmlMessage, wxSessionManager);
+            }
+//            try {
+//                WxSession session = wxSessionManager.getSession(wxMpXmlMessage.getFromUserName());
+//                if (session.getAttribute("status").equals("choice")) {
+//                    try {
+//                        int oper = Integer.valueOf(wxMpXmlMessage.getContent());
+//                        if (oper > 0 && oper < 8) {
+//                            if (session.getAttribute("Identification").equals(2)) {
+//
+//                                switch (Integer.valueOf(wxMpXmlMessage.getContent())) {
+//                                    case 1:
+//                                        session.setAttribute("status", "choice1");
+//                                        tmessage.setContent("请输入分销商姓名和手机号，中间用逗号隔开");
+//                                        break;
+//                                    case 2:
+//                                        tmessage.setContent("2");
+//                                        break;
+//                                    case 3:
+//                                        tmessage.setContent("3");
+//                                        break;
+//                                    case 4:
+//                                        tmessage.setContent("4");
+//                                        break;
+//                                    case 5:
+//                                        tmessage.setContent("5");
+//                                        break;
+//                                    case 6:
+//                                        tmessage.setContent("6");
+//                                        break;
+//                                    case 7:
+//                                        tmessage.setContent("7");
+//                                        break;
+//                                    default:
+//                                        return menuhandle(wxMpXmlMessage, wxSessionManager);
+//                                }
+//
+//                            } else if (session.getAttribute("Identification").equals(1)) {
+//
+//                                switch (Integer.valueOf(wxMpXmlMessage.getContent())) {
+//                                    case 1:
+//                                        session.setAttribute("status", "choice1");
+//                                        tmessage.setContent("请输入查询商品名称");
+//                                        break;
+//                                    case 2:
+//                                        tmessage.setContent("2");
+//                                        break;
+//                                    default:
+//                                        return menuhandle(wxMpXmlMessage, wxSessionManager);
+//                                }
+//                            } else if (session.getAttribute("Identification").equals(0)) {
+//                                switch (Integer.valueOf(wxMpXmlMessage.getContent())) {
+//                                    case 1:
+//                                        session.setAttribute("status", "choice1");
+//                                        tmessage.setContent("请输入认证码");
+//                                        break;
+//                                    case 2:
+//                                        session.setAttribute("status", "choice2");
+//                                        tmessage.setContent("请输入认证码");
+//                                        break;
+//                                    default:
+//                                        return menuhandle(wxMpXmlMessage, wxSessionManager);
+//                                }
+//                            }
+//                        } else {
+//                            return menuhandle(wxMpXmlMessage, wxSessionManager);
+//                        }
+//                    } catch (NumberFormatException e) {
+//                        return menuhandle(wxMpXmlMessage, wxSessionManager);
+//                    }
+//                } else if (session.getAttribute("status").equals("choice1")) {
+//                    if (session.getAttribute("Identification").equals(2)) {
+//                        String[] contents = wxMpXmlMessage.getContent().split(",");
+//
+//                        RestTemplate restTemplate = new RestTemplate();
+//
+//                        Dealer dealer = new Dealer(contents[0], contents[1]);
+//
+//                        UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8080/UserManage/addDealer", dealer, UpdateUserStatus.class);
+//
+//                        if (updateUserStatus.getMsgCode().equals(1)) {
+//                            tmessage.setContent("登记成功\n分销商认证码：" + updateUserStatus.getResult());
+//                            session.invalidate();
+//                        } else {
+//                            tmessage.setContent(updateUserStatus.getResult());
+//                        }
+//
+//                    } else if (session.getAttribute("Identification").equals(1)) {
+//
+//                    } else if (session.getAttribute("Identification").equals(0)) {
+//                        RestTemplate restTemplate = new RestTemplate();
+//
+//                        Dealer dealer = new Dealer();
+//                        dealer.setId(wxMpXmlMessage.getContent());
+//                        dealer.setOpenid(wxMpXmlMessage.getFromUserName());
+//
+//                        UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8080/UserManage/addDealer", dealer, UpdateUserStatus.class);
+//
+//                        if (updateUserStatus.getMsgCode().equals(1)) {
+//                            tmessage.setContent("登记成功");
+//                            session.invalidate();
+//                        } else {
+//                            tmessage.setContent(updateUserStatus.getResult());
+//                        }
+//                    }
+//                } else {
+//                    return menuhandle(wxMpXmlMessage, wxSessionManager);
+//                }
+//            } catch (Exception e) {
+//                return menuhandle(wxMpXmlMessage, wxSessionManager);
+//            }
             return tmessage;
         }
     };
@@ -229,7 +424,6 @@ public class MessageService {
         //识别用户身份
         RestTemplate restTemplate = new RestTemplate();
         IdentifyUserStatus identifyUserStatus = restTemplate.getForObject("http://localhost:8091/User/IdentifyUser?OpenId=" + wxMpXmlMessage.getFromUserName(), IdentifyUserStatus.class);
-        System.out.println(identifyUserStatus.toString());
 
         WxMpXmlOutTextMessage emessage
                 = WxMpXmlOutMessage.TEXT()
@@ -253,7 +447,6 @@ public class MessageService {
         WxSession session = wxSessionManager.getSession(wxMpXmlMessage.getFromUserName());
         session.setAttribute("status", "choice");
         session.setAttribute("Identification", identifyUserStatus.getResult().getIdentification());
-        System.out.println(session.getAttribute(wxMpXmlMessage.getFromUserName()));
         return emessage;
     }
 
