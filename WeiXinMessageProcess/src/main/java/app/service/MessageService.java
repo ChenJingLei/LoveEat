@@ -100,19 +100,16 @@ public class MessageService {
                 .event(WxConsts.EVT_SUBSCRIBE)
                 .handler(enterhandler)
                 .end()
-
                 .rule()
                 .async(false)
                 .content("菜单")
                 .handler(enterhandler)
                 .end()
-
                 .rule()
                 .async(false)
                 .content("1")
                 .handler(choice1handeler)
                 .end()
-
                 .rule()
                 .async(false)
                 .content("2")
@@ -138,7 +135,6 @@ public class MessageService {
                 .msgType(WxConsts.XML_MSG_VOICE)
                 .handler(voiceHandle)
                 .end()
-
                 .rule()
                 .async(false)
                 .handler(restHandler)
@@ -166,7 +162,6 @@ public class MessageService {
                 }
                 RestTemplate restTemplate = new RestTemplate();
                 if (session.getAttribute("status").equals("choice1")) {
-
                     Dealer dealer = new Dealer(contents[0], contents[1]);
                     UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8080/UserManage/addDealer", dealer, UpdateUserStatus.class);
                     System.out.println(updateUserStatus.toString());
@@ -202,7 +197,6 @@ public class MessageService {
                     .fromUser(wxMpXmlMessage.getToUserName())
                     .toUser(wxMpXmlMessage.getFromUserName())
                     .build();
-
             WxSession session = wxSessionManager.getSession(wxMpXmlMessage.getFromUserName());
             try {
                 if (session.getAttribute("status").equals("choice")) {
