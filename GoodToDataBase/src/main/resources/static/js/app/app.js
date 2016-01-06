@@ -38,11 +38,41 @@ var App = (function(){
         });
 		J.Transition.add('flip','slideLeftOut','flipOut','slideRightOut','flipIn');
         Jingle.launch({
-            showWelcome : false,
+            showWelcome : true,
+            welcomeSlideChange : function(i){
+                switch(i){
+                    case 0 :
+                        J.anim('#welcome_jingle','welcome_jinlge',1000);
+                        break;
+                    case 1 :
+                        $('#r_head,#r_body,#r_hand_left,#r_hand_right,#r_foot_left,#r_foot_right').hide()
+                        J.anim($('#r_head').show(),'r_head',500,function(){
+                            J.anim($('#r_body').show(),'r_body',1200,function(){
+                                J.anim($('#r_hand_left').show(),'r_hand_l',500);
+                                J.anim($('#r_hand_right').show(),'r_hand_r',500,function(){
+                                    J.anim($('#r_foot_left').show(),'r_foot_l',500);
+                                    J.anim($('#r_foot_right').show(),'r_foot_r',500,function(){
+                                        J.anim('#welcome_robot','welcome_robot',2000);
+                                    });
+                                });
+                            });
+                        });
+                        break;
+                    case 2 :
+                        $('#w_box_1,#w_box_2,#w_box_3,#w_box_4').hide()
+                        J.anim($('#w_box_1').show(),'box_l',500,function(){
+                            J.anim($('#w_box_2').show(),'box_r',500,function(){
+                                J.anim($('#w_box_3').show(),'box_l',500,function(){
+                                    J.anim($('#w_box_4').show(),'box_r',500);
+                                });
+                            });
+                        });
+                        break;
+                }
+            },
             showPageLoading : true,
             remotePage : {
-            	'#index_section': ctx,
-            	'#user_section': ctx + '/sys/user'
+                '#about_section' : 'remote/about_section.html'
             }
         });
        
@@ -69,7 +99,7 @@ var App = (function(){
         page : page,
         calcChartOffset : calcChartOffset
     }
-}());/*
+}());
 App.page('index',function(){
     this.init = function(){
         $('#btn_show_welcome').on('tap', J.Welcome.show);
@@ -546,7 +576,7 @@ App.page('form',function(){
             alert($(this).data('checkbox'));
         })
     }
-})*/
+})
 $(function(){
     App.run();
 })

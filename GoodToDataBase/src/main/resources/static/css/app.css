@@ -6,7 +6,7 @@
 }
 .demo-list span.icon{
     position: inherit;
-/*     font-size: 40px; */
+    font-size: 40px;
     color: #524d4b;
     padding: 0 10px;
 }
@@ -134,11 +134,11 @@
     100% {-webkit-transform: translateX(0) rotate(315deg);}
 }
 @-webkit-keyframes r_body {
-    0% {-webkit-transform: scale(.1) rotate(0deg);}
+    0% {-webkit-transform: scale(.1) rotate(0);}
     10% {-webkit-transform: scale(.2) rotate(360deg);}
-    40% {-webkit-transform: scale(.5) rotate(0deg);}
+    40% {-webkit-transform: scale(.5) rotate(0);}
     50% {-webkit-transform: scale(.6) rotate(360deg);}
-    80% {-webkit-transform: scale(.9) rotate(0deg);}
+    80% {-webkit-transform: scale(.9) rotate(0);}
     100% {-webkit-transform: scale(1.1) rotate(360deg);}
 }
 @-webkit-keyframes r_foot_l {
@@ -147,7 +147,7 @@
 }
 @-webkit-keyframes r_foot_r {
     0% {-webkit-transform: translateX(-300%) translateY(300%) rotate(270deg);}
-    100% {-webkit-transform: translateX(0) translateY(0) rotate(0deg);}
+    100% {-webkit-transform: translateX(0) translateY(0) rotate(0);}
 }
 @-webkit-keyframes  welcome_robot{
     0%{-webkit-transform: scale(.8)}

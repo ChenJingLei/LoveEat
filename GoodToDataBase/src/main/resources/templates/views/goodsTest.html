@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="zh">
+    <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8"/>
+    <title>Jingle V0.4</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="/css/Jingle.css">
+    <link rel="stylesheet" href="/css/app.css">
+
+</head>
+<body>
+<div id="aside_container">
+</div>
+
+<div id="section_container">
+    <section id="index_section" class="active">
+        <header>
+            <h1 class="title">商品入库</h1>
+        </header>
+        <article class="active" data-scroll="true">
+            <div style="padding: 10px 0 20px;">
+                <!-- Input group with labels-->
+                <form class="input-group">
+                    <div class="input-row">
+                        <label>商品条形码</label>
+                        <input type="text" placeholder="商品条形码">
+                        <a href="#" class="button" id="scanQRCode0">扫描</a>
+                    </div>
+                    <div class="input-row">
+                        <label>商品名称</label>
+                        <input type="text" placeholder="商品名称">
+                    </div>
+                    <div class="input-row">
+                        <label>数量</label>
+                        <input type="text" placeholder="数量">
+                    </div>
+                    <div class="input-row">
+                        <label>单价</label>
+                        <input type="text" placeholder="单价">
+                    </div>
+                    <div class="input-row">
+                        <label>产地</label>
+                        <input type="text" placeholder="产地">
+                    </div>
+                    <div class="input-row">
+                        <label>生产日期</label>
+                        <input type="date" placeholder="生产日期">
+                    </div>
+                    <div class="input-row">
+                        <label>类别</label>
+                        <input type="text" placeholder="类别">
+                    </div>
+                </form>
+
+                <a href="#" class="button block nephritis">入库</a>
+            </div>
+        </article>
+    </section>
+</div>
+<!--<script type="text/javascript" src="js/lib/cordova.js"></script>-->
+<!-- lib -->
+<script type="text/javascript" src="/js/lib/zepto.js"></script>
+<script type="text/javascript" src="/js/lib/iscroll.js"></script>
+<script type="text/javascript" src="/js/lib/template.min.js"></script>
+<script type="text/javascript" src="/js/lib/Jingle.debug.js"></script>
+<script type="text/javascript" src="/js/lib/zepto.touch2mouse.js"></script>
+<script type="text/javascript" src="/js/lib/JChart.debug.js"></script>
+<!--- app --->
+<script type="text/javascript" src="/js/app/app.js"></script>
+<!--<script src="http://192.168.2.153:8080/target/target-script-min.js#anonymous"></script>-->
+</body>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+<script th:inline="javascript">
+    /*
+     * 注意：
+     * 1. 所有的JS接口只能在公众号绑定的域名下调用，公众号开发者需要先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。
+     * 2. 如果发现在 Android 不能分享自定义内容，请到官网下载最新的包覆盖安装，Android 自定义分享接口需升级至 6.0.2.58 版本及以上。
+     * 3. 常见问题及完整 JS-SDK 文档地址：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
+     *
+     * 开发中遇到问题详见文档“附录5-常见错误及解决办法”解决，如仍未能解决可通过以下渠道反馈：
+     * 邮箱地址：weixin-open@qq.com
+     * 邮件主题：【微信JS-SDK反馈】具体问题
+     * 邮件内容说明：用简明的语言描述问题所在，并交代清楚遇到该问题的场景，可附上截屏图片，微信团队会尽快处理你的反馈。
+     */
+
+    alert([[${appid}]]);
+    alert([[${timestamp}]]);
+    alert([[${nonceStr}]]);
+    alert([[${signature}]]);
+
+
+    wx.config({
+        debug: true,
+        appId: [[${appid}]],
+        timestamp: [[${timestamp}]],
+        nonceStr: [[${nonceStr}]],
+        signature: [[${signature}]],
+        jsApiList: [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'onMenuShareQZone',
+            'hideMenuItems',
+            'showMenuItems',
+            'hideAllNonBaseMenuItem',
+            'showAllNonBaseMenuItem',
+            'translateVoice',
+            'startRecord',
+            'stopRecord',
+            'onVoiceRecordEnd',
+            'playVoice',
+            'onVoicePlayEnd',
+            'pauseVoice',
+            'stopVoice',
+            'uploadVoice',
+            'downloadVoice',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'getNetworkType',
+            'openLocation',
+            'getLocation',
+            'hideOptionMenu',
+            'showOptionMenu',
+            'closeWindow',
+            'scanQRCode',
+            'chooseWXPay',
+            'openProductSpecificView',
+            'addCard',
+            'chooseCard',
+            'openCard'
+        ]
+    });
+</script>
+</html>

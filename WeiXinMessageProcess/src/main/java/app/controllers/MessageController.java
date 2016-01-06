@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.models.WeiXinConfig;
 import app.service.MessageService;
+import me.chanjar.weixin.common.bean.WxJsapiSignature;
 import me.chanjar.weixin.common.bean.WxMenu;
 import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.common.util.StringUtils;
@@ -31,12 +32,24 @@ public class MessageController {
     @Autowired
     private MessageService service;
 
+    @RequestMapping(value = "/getWeiXinConfig", method = RequestMethod.POST)
+    public WxJsapiSignature getWeiXinConfig(@RequestBody String url) {
+        try {
+            return service.getWxMpService().createJsapiSignature(url);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+
     @RequestMapping(value = "/WeiXin")
     public void WeiXinGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, WxErrorException {
 
         String signature = request.getParameter("signature");
         String nonce = request.getParameter("nonce");
         String timestamp = request.getParameter("timestamp");
+
+        System.out.println(signature + "//" + nonce + "///" + timestamp);
 
         if (!service.getWxMpService().checkSignature(timestamp, nonce, signature)) {
             // 消息签名不正确，说明不是公众平台发过来的消息
