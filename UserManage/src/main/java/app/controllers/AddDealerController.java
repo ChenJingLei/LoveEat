@@ -43,6 +43,4 @@ public class AddDealerController {
         UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8090/Dealer/addOpenIdToDealer", paramDealer, UpdateUserStatus.class);
         return updateUserStatus;
     }
-
-
 }

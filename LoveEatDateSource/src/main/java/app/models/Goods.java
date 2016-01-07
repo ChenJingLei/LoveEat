@@ -30,6 +30,9 @@ public class Goods {
     @Column(name = "Gcategory", columnDefinition = "VARCHAR(50)",length = 50)   //生产日期
     private String category;
 
+    @Column(name= "Barcode", columnDefinition = "VARCHAR(50)",length = 50)
+    private String barcode;
+
     public Goods() {
 
     }
@@ -40,6 +43,24 @@ public class Goods {
         this.uprice = uprice;
         this.oplace = oplace;
         this.mdate = mdate;
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
+    public Goods(String name, Long num, String uprice, String oplace, String mdate, String category, String barcode) {
+        this.name = name;
+        this.num = num;
+        this.uprice = uprice;
+        this.oplace = oplace;
+        this.mdate = mdate;
+        this.category = category;
+        this.barcode = barcode;
     }
 
     public Goods(String name, Long num, String uprice, String oplace, String mdate, String category) {
@@ -117,6 +138,7 @@ public class Goods {
                 ", oplace='" + oplace + '\'' +
                 ", mdate='" + mdate + '\'' +
                 ", category='" + category + '\'' +
+                ", barcode='" + barcode + '\'' +
                 '}';
     }
 }
