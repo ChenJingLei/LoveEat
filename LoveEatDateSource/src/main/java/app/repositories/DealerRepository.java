@@ -11,5 +11,6 @@ import java.util.List;
 public interface DealerRepository extends CrudRepository<Dealer, String> {
     Dealer findByNameAndPhone(String name, String Phone);
     Dealer findByOpenid(String OpenId);
+    Dealer findById(String id);
     List<Dealer> findAll();
 }

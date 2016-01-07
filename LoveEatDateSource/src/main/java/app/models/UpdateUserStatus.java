@@ -33,4 +33,5 @@ public class UpdateUserStatus {
     public void setResult(String result) {
         this.result = result;
     }
+
 }

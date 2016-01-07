@@ -1,6 +1,7 @@
 package app.controllers;
 
 import app.models.Dealer;
+import app.models.DealerStatus;
 import app.models.ShowInfo;
 import app.models.UpdateUserStatus;
 import app.repositories.DealerRepository;
@@ -77,6 +78,25 @@ public class DealerController {
             updateUserStatus.setResult("failed" + e.getMessage());
         }
         return updateUserStatus;
+    }
+
+    @RequestMapping(value = "/QueryById/{id}", method = RequestMethod.GET)
+    public DealerStatus QueryDealersById(@PathVariable("id") String id) {
+        DealerStatus dealerStatus = new DealerStatus();
+        try {
+            if (repository.exists(id)) {
+                dealerStatus.setMsgCode("1");
+                dealerStatus.setResult("Querying dealers successfully");
+                dealerStatus.setDealer(repository.findById(id));
+        }else {
+            dealerStatus.setMsgCode("0");
+            dealerStatus.setResult("Dealer is not existed");
+            }
+        }catch (Exception e){
+            dealerStatus.setMsgCode("-1");
+            dealerStatus.setResult("Failed" + e.getMessage());
+        }
+        return dealerStatus;
     }
 
     @RequestMapping(value = "/FindAll")

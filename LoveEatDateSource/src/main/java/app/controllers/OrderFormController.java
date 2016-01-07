@@ -2,6 +2,7 @@ package app.controllers;
 
 
 import app.models.OrderForm;
+import app.models.OrderFormStatus;
 import app.models.ShowInfo;
 import app.models.UpdateUserStatus;
 import app.repositories.OrderFormRepository;
@@ -57,21 +58,23 @@ public class OrderFormController {
         return updateUserStatus;
     }
 
-    @RequestMapping(value = "/Query/{ofid}", method = RequestMethod.GET)
-    public UpdateUserStatus QueryOrderForm(@PathVariable("ofid") Long ofid){
-        UpdateUserStatus updateUserStatus = new UpdateUserStatus();
+    @RequestMapping(value = "/QueryById/{ofid}", method = RequestMethod.GET)
+    public OrderFormStatus QueryOrderFormById(@PathVariable("ofid") Long ofid){
+        OrderFormStatus orderFormStatus = new OrderFormStatus();
         try{
             if (repository.exists(ofid)) {
-                updateUserStatus.setMsgCode("1");
-                updateUserStatus.setResult(repository.findByOfid(ofid).toString());
+                orderFormStatus.setMsgCode("1");
+                orderFormStatus.setResult("Querying OrderForms successfully");
+                orderFormStatus.setOrderform(repository.findByOfid(ofid));
             }else {
-                updateUserStatus.setMsgCode("0");
-                updateUserStatus.setResult("OrderForm is not exists");
+                orderFormStatus.setMsgCode("0");
+                orderFormStatus.setResult("OrderForm is not existed");
             }
         } catch (Exception e) {
-                updateUserStatus.setResult("failed" + e.getMessage());
+            orderFormStatus.setMsgCode("-1");
+            orderFormStatus.setResult("Failed" + e.getMessage());
             }
-        return updateUserStatus;
+        return orderFormStatus;
         }
 
     @RequestMapping(value = "/FindAll")

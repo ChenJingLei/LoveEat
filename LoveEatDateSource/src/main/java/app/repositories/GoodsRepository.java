@@ -11,6 +11,7 @@ import java.util.List;
 public interface GoodsRepository extends CrudRepository<Goods, Long> {
     Goods findByNameAndOplace(String name, String place);
     Goods findByName(String name);
+    Goods findById(Long id);
     List<Goods> findAll();
 
 }

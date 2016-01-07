@@ -1,6 +1,7 @@
 package app.controllers;
 
 import app.models.Goods;
+import app.models.GoodsStatus;
 import app.models.ShowInfo;
 import app.models.UpdateUserStatus;
 import app.repositories.GoodsRepository;
@@ -100,17 +101,39 @@ public class GoodsController {
         return updateUserStatus;
     }
 
-    @RequestMapping(value = "/Query/{name}", method = RequestMethod.GET)
-    public UpdateUserStatus QueryGoods(@PathVariable("name") String name) {
-        UpdateUserStatus updateUserStatus = new UpdateUserStatus();
+
+    @RequestMapping(value = "/QueryByName/{name}", method = RequestMethod.GET)
+    public GoodsStatus QueryGoodsByName(@PathVariable("name") String name) {
+        GoodsStatus goodsStatus = new GoodsStatus();
         try {
-                updateUserStatus.setMsgCode("1");
-                updateUserStatus.setResult(repository.findByName(name).toString());
+            goodsStatus.setMsgCode("1");
+            goodsStatus.setResult("Querying goods successfully");
+            goodsStatus.setGoods(repository.findByName(name));
         } catch (Exception e) {
-            updateUserStatus.setMsgCode("0");
-            updateUserStatus.setResult("Goods is not exists");
+            goodsStatus.setMsgCode("0");
+            goodsStatus.setResult("Querying goods unsuccessfully");
         }
-        return updateUserStatus;
+        return goodsStatus;
+    }
+
+
+    @RequestMapping(value = "/QueryById/{id}", method = RequestMethod.GET)
+    public GoodsStatus QueryGoodsById(@PathVariable("id") Long id) {
+        GoodsStatus goodsStatus = new GoodsStatus();
+        try {
+            if (repository.exists(id)) {
+            goodsStatus.setMsgCode("1");
+            goodsStatus.setResult("Querying goods successfully");
+            goodsStatus.setGoods(repository.findById(id));
+        } else {
+            goodsStatus.setMsgCode("0");
+            goodsStatus.setResult("Goods is not existed");
+            }
+        }catch (Exception e){
+            goodsStatus.setMsgCode("-1");
+            goodsStatus.setResult("Failed" + e.getMessage());
+        }
+        return goodsStatus;
     }
 
     @RequestMapping(value = "/FindAll")
