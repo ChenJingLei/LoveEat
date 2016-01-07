@@ -3,20 +3,21 @@ package app.controllers;
 import app.models.OrderForm;
 import app.models.ShowInfo;
 import app.models.UpdateUserStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 /**
  * Created by HeZYSaaaaln on 2016/1/5.
  */
-@RestController
-@RequestMapping("/OrderFormManage")
+@Controller
 public class OrderFormManageController {
     @RequestMapping(value = "/addForm", method = RequestMethod.POST)
-    public UpdateUserStatus addInfoToOrderForm(@RequestBody OrderForm paramForm) {
+    public String addInfoToOrderForm(@RequestBody OrderForm paramForm) {
         RestTemplate restTemplate = new RestTemplate();
         UpdateUserStatus updateUserStatus = restTemplate.postForObject("http://localhost:8090/OrderForm/addOrderForm", paramForm, UpdateUserStatus.class);
-        return updateUserStatus;
+//        return updateUserStatus;
+        return "views/orderForm";
     }
 
     @RequestMapping(value = "/deleteForm/{ofid}", method = RequestMethod.DELETE)

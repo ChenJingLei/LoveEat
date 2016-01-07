@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by cjl20 on 2016/1/5.
@@ -44,12 +47,12 @@ public class GoodsDealController {
 //        model.addAttribute(TIMESTAMP, jsApiSignature.getTimestamp());
 //        model.addAttribute(NONCESTR, jsApiSignature.getNoncestr());
 //        model.addAttribute(SIGNATURE, jsApiSignature.getSignature());
-        return "views/goodsToBase";
+        return "templates.views/goodsToBase";
     }
 
     @RequestMapping(value = "/GoodsToDataBase/test", method = RequestMethod.GET)
     public String test() {
-        return "views/live_w_locator";
+        return "templates.views/goods";
     }
 
     @RequestMapping(value = "/addGoods", method = RequestMethod.POST)
@@ -62,18 +65,19 @@ public class GoodsDealController {
             System.out.println(updateUserStatus.toString());
             if (updateUserStatus.getMsgCode().equals("1")) {
                 model.addAttribute("Goods", goods);
-                return "views/goodsSuccess";
+                return "templates.views/goodsSuccess";
             } else {
                 throw new Exception(updateUserStatus.getResult());
             }
         } catch (Exception e) {
             System.out.println(updateUserStatus.toString());
             model.addAttribute("Result", updateUserStatus.getResult());
-            return "views/goodsFailed";
+            return "templates.views/goodsFailed";
         }
     }
 
     private static String GOODS = "goods";
+    private static String DATEFORMATE = "datefromate";
 
     @RequestMapping(value = "/GoodsShow/{gid}", method = RequestMethod.GET)
     public String GoodsShow(@PathVariable("gid") String id, Model model) {
@@ -81,9 +85,12 @@ public class GoodsDealController {
         RestTemplate restTemplate = new RestTemplate();
         try {
 //            updateUserStatus = restTemplate.getForObject("http://localhost:8090/Query/", UpdateUserStatus.class);
-            Goods goods = new Goods("aaa", 1L, "ccc", "ddd", "eeee", "dddd");
+//           public Goods(String name, Long num, Float uprice, String oplace, Date mdate, String category, String barcode) {
+
+            Goods goods = new Goods("aaa", 1L, 13.5f, "ccc", new Date(), "eeee", "dddd");
             model.addAttribute(GOODS, goods);
-            return "views/goodsShow";
+            model.addAttribute(DATEFORMATE, new SimpleDateFormat("yyyy年MM年dd日"));
+            return "templates.views/goodsShow";
         } catch (Exception e) {
             return "view/goodsFailed";
         }

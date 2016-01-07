@@ -25,7 +25,6 @@ public class Goods {
     private String barcode;
 
     public Goods() {
-
     }
 
     public Goods(String name, Long num, Float uprice, String oplace, Date mdate) {
