@@ -47,12 +47,12 @@ public class GoodsDealController {
 //        model.addAttribute(TIMESTAMP, jsApiSignature.getTimestamp());
 //        model.addAttribute(NONCESTR, jsApiSignature.getNoncestr());
 //        model.addAttribute(SIGNATURE, jsApiSignature.getSignature());
-        return "templates.views/goodsToBase";
+        return "views/goodsTobase";
     }
 
     @RequestMapping(value = "/GoodsToDataBase/test", method = RequestMethod.GET)
     public String test() {
-        return "templates.views/goods";
+        return "views/goods";
     }
 
     @RequestMapping(value = "/addGoods", method = RequestMethod.POST)
@@ -65,14 +65,14 @@ public class GoodsDealController {
             System.out.println(updateUserStatus.toString());
             if (updateUserStatus.getMsgCode().equals("1")) {
                 model.addAttribute("Goods", goods);
-                return "templates.views/goodsSuccess";
+                return "views/goodsSuccess";
             } else {
                 throw new Exception(updateUserStatus.getResult());
             }
         } catch (Exception e) {
             System.out.println(updateUserStatus.toString());
             model.addAttribute("Result", updateUserStatus.getResult());
-            return "templates.views/goodsFailed";
+            return "views/goodsFailed";
         }
     }
 
@@ -87,10 +87,10 @@ public class GoodsDealController {
 //            updateUserStatus = restTemplate.getForObject("http://localhost:8090/Query/", UpdateUserStatus.class);
 //           public Goods(String name, Long num, Float uprice, String oplace, Date mdate, String category, String barcode) {
 
-            Goods goods = new Goods("aaa", 1L, 13.5f, "ccc", new Date(), "eeee", "dddd");
+            Goods goods = new Goods("猎豹牌蚊香", 100L, 13.5f, "上海", new Date(), "生活用品", "971231231231");
             model.addAttribute(GOODS, goods);
             model.addAttribute(DATEFORMATE, new SimpleDateFormat("yyyy年MM年dd日"));
-            return "templates.views/goodsShow";
+            return "views/goodsShow";
         } catch (Exception e) {
             return "view/goodsFailed";
         }
