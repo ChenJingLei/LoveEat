@@ -23,43 +23,45 @@
         <article class="active" data-scroll="true">
             <div style="padding: 10px 0 20px;">
                 <!-- Input group with labels-->
-                <form class="input-group">
+                <form class="input-group" method="Post" action="/addGoods">
                     <div class="input-row">
                         <label>商品条形码</label>
-                        <input type="text" placeholder="商品条形码">
+                        <input type="text" placeholder="商品条形码" name="id" th:value="${appid}">
                         <a href="#" class="button" id="scanQRCode0">扫描</a>
                     </div>
                     <div class="input-row">
                         <label>商品名称</label>
-                        <input type="text" placeholder="商品名称">
+                        <input type="text" placeholder="商品名称" name="name">
                     </div>
                     <div class="input-row">
                         <label>数量</label>
-                        <input type="text" placeholder="数量">
+                        <input type="text" placeholder="数量" name="num">
                     </div>
                     <div class="input-row">
                         <label>单价</label>
-                        <input type="text" placeholder="单价">
+                        <input type="text" placeholder="单价" name="uprice">
                     </div>
                     <div class="input-row">
                         <label>产地</label>
-                        <input type="text" placeholder="产地">
+                        <input type="text" placeholder="产地" name="oplace">
                     </div>
                     <div class="input-row">
                         <label>生产日期</label>
-                        <input type="date" placeholder="生产日期">
+                        <input type="date" placeholder="生产日期" name="mdate">
                     </div>
                     <div class="input-row">
                         <label>类别</label>
-                        <input type="text" placeholder="类别">
+                        <input type="text" placeholder="类别" name="category">
                     </div>
+                    <input class="button block nephritis" value="入库" type="submit"/>
+                    <!--<a href="#" class="button block nephritis" type="submit">入库</a>-->
                 </form>
-
-                <a href="#" class="button block nephritis">入库</a>
             </div>
         </article>
     </section>
 </div>
+
+
 <!--<script type="text/javascript" src="js/lib/cordova.js"></script>-->
 <!-- lib -->
 <script type="text/javascript" src="/js/lib/zepto.js"></script>
@@ -87,10 +89,10 @@
      * 邮件内容说明：用简明的语言描述问题所在，并交代清楚遇到该问题的场景，可附上截屏图片，微信团队会尽快处理你的反馈。
      */
 
-    alert([[${appid}]]);
-    alert([[${timestamp}]]);
-    alert([[${nonceStr}]]);
-    alert([[${signature}]]);
+    //    alert([[${appid}]]);
+    //    alert([[${timestamp}]]);
+    //    alert([[${nonceStr}]]);
+    //    alert([[${signature}]]);
 
 
     wx.config({

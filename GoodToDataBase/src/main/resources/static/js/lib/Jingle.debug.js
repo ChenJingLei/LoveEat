@@ -416,22 +416,22 @@ J.Router = (function($){
             }
         });
         $(document).on('tap','a[data-target]',_targetHandler);
-        _initIndex();
+        //_initIndex();
     }
 
     //处理app页面初始化
-    var _initIndex = function(){
-        var targetHash = location.hash;
-        //取页面中第一个section作为app的起始页
-        var $section = $('#section_container section').first();
-        var indexHash = '#'+$section.attr('id');
-        _add2History(indexHash,true);
-        if(targetHash != '' && targetHash != indexHash){
-            _showSection(targetHash);//跳转到指定的页面
-        }else{
-            $section.trigger('pageinit').trigger('pageshow').data('init',true).find('article.active').trigger('articleshow');
-        }
-    }
+    //var _initIndex = function(){
+    //    var targetHash = location.hash;
+    //    //取页面中第一个section作为app的起始页
+    //    var $section = $('#section_container section').first();
+    //    var indexHash = '#'+$section.attr('id');
+    //    _add2History(indexHash,true);
+    //    if(targetHash != '' && targetHash != indexHash){
+    //        _showSection(targetHash);//跳转到指定的页面
+    //    }else{
+    //        $section.trigger('pageinit').trigger('pageshow').data('init',true).find('article.active').trigger('articleshow');
+    //    }
+    //}
 
     /**
      * 处理浏览器的后退事件

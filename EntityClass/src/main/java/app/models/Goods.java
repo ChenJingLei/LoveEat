@@ -18,6 +18,8 @@ public class Goods {
 
     private String mdate;
 
+    private String category;
+
     public Goods() {
 
     }
@@ -28,6 +30,16 @@ public class Goods {
         this.uprice = uprice;
         this.oplace = oplace;
         this.mdate = mdate;
+    }
+
+    public Goods(Long id, String name, Long num, String uprice, String oplace, String mdate, String category) {
+        this.id = id;
+        this.name = name;
+        this.num = num;
+        this.uprice = uprice;
+        this.oplace = oplace;
+        this.mdate = mdate;
+        this.category = category;
     }
 
     public Long getId() {
@@ -78,15 +90,24 @@ public class Goods {
         this.mdate = mdate;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         return "Goods{" +
-                "mdate='" + mdate + '\'' +
-                ", oplace='" + oplace + '\'' +
-                ", uprice='" + uprice + '\'' +
-                ", num=" + num +
+                "id=" + id +
                 ", name='" + name + '\'' +
-                ", id=" + id +
+                ", num=" + num +
+                ", uprice='" + uprice + '\'' +
+                ", oplace='" + oplace + '\'' +
+                ", mdate='" + mdate + '\'' +
+                ", category='" + category + '\'' +
                 '}';
     }
 }
