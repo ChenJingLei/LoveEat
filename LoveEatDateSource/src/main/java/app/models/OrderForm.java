@@ -1,6 +1,7 @@
 package app.models;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by HeZYSaaaaln on 2016/1/3.
@@ -28,12 +29,12 @@ public class OrderForm {
     private String address;
 
     @Column(name = "OFdatetime", columnDefinition = "DATETIME")   //限还时间
-    private String datetime;
+    private Date datetime;
 
     public OrderForm() {
     }
 
-    public OrderForm(String gid, String did, Long num, String address, String datetime) {
+    public OrderForm(String gid, String did, Long num, String address, Date datetime) {
         this.gid = gid;
         this.did = did;
         this.num = num;
@@ -81,11 +82,11 @@ public class OrderForm {
         this.address = address;
     }
 
-    public String getDatetime() {
+    public Date getDatetime() {
         return datetime;
     }
 
-    public void setDatetime(String datetime) {
+    public void setDatetime(Date datetime) {
         this.datetime = datetime;
     }
 

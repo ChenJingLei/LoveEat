@@ -1,5 +1,7 @@
 package app.models;
 
+import java.util.Date;
+
 /**
  * Created by HeZYSaaaaln on 2016/1/3.
  */
@@ -16,7 +18,7 @@ public class Goods {
 
     private String oplace;
 
-    private String mdate;
+    private Date mdate;
 
     private String category;
 
@@ -26,7 +28,7 @@ public class Goods {
 
     }
 
-    public Goods(String name, Long num, String uprice, String oplace, String mdate) {
+    public Goods(String name, Long num, String uprice, String oplace, Date mdate) {
         this.name = name;
         this.num = num;
         this.uprice = uprice;
@@ -42,7 +44,7 @@ public class Goods {
         this.barcode = barcode;
     }
 
-    public Goods(String name, Long num, String uprice, String oplace, String mdate, String category, String barcode) {
+    public Goods(String name, Long num, String uprice, String oplace, Date mdate, String category, String barcode) {
         this.name = name;
         this.num = num;
         this.uprice = uprice;
@@ -52,7 +54,7 @@ public class Goods {
         this.barcode = barcode;
     }
 
-    public Goods(String name, Long num, String uprice, String oplace, String mdate, String category) {
+    public Goods(String name, Long num, String uprice, String oplace, Date mdate, String category) {
         this.name = name;
         this.num = num;
         this.uprice = uprice;
@@ -109,11 +111,11 @@ public class Goods {
         this.oplace = oplace;
     }
 
-    public String getMdate() {
+    public Date getMdate() {
         return mdate;
     }
 
-    public void setMdate(String mdate) {
+    public void setMdate(Date mdate) {
         this.mdate = mdate;
     }
 
