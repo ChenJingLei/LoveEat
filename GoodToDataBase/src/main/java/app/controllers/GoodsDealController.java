@@ -63,13 +63,29 @@ public class GoodsDealController {
             if (updateUserStatus.getMsgCode().equals("1")) {
                 model.addAttribute("Goods", goods);
                 return "views/goodsSuccess";
-            }else {
+            } else {
                 throw new Exception(updateUserStatus.getResult());
             }
         } catch (Exception e) {
             System.out.println(updateUserStatus.toString());
             model.addAttribute("Result", updateUserStatus.getResult());
             return "views/goodsFailed";
+        }
+    }
+
+    private static String GOODS = "goods";
+
+    @RequestMapping(value = "/GoodsShow/{gid}", method = RequestMethod.GET)
+    public String GoodsShow(@PathVariable("gid") String id, Model model) {
+        UpdateUserStatus updateUserStatus = new UpdateUserStatus();
+        RestTemplate restTemplate = new RestTemplate();
+        try {
+//            updateUserStatus = restTemplate.getForObject("http://localhost:8090/Query/", UpdateUserStatus.class);
+            Goods goods = new Goods("aaa", 1L, "ccc", "ddd", "eeee", "dddd");
+            model.addAttribute(GOODS, goods);
+            return "views/goodsShow";
+        } catch (Exception e) {
+            return "view/goodsFailed";
         }
     }
 }

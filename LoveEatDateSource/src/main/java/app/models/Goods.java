@@ -21,7 +21,7 @@ public class Goods {
     private Long num;
 
     @Column(name = "Guprice", columnDefinition = "float")
-    private String uprice;
+    private Float uprice;
 
     @Column(name = "Goplace", columnDefinition = "VARCHAR(100)",length = 100)
     private String oplace;
@@ -39,7 +39,7 @@ public class Goods {
 
     }
 
-    public Goods(String name, Long num, String uprice, String oplace, Date mdate) {
+    public Goods(String name, Long num, Float uprice, String oplace, Date mdate) {
         this.name = name;
         this.num = num;
         this.uprice = uprice;
@@ -55,7 +55,7 @@ public class Goods {
         this.barcode = barcode;
     }
 
-    public Goods(String name, Long num, String uprice, String oplace, Date mdate, String category, String barcode) {
+    public Goods(String name, Long num, Float uprice, String oplace, Date mdate, String category, String barcode) {
         this.name = name;
         this.num = num;
         this.uprice = uprice;
@@ -65,7 +65,7 @@ public class Goods {
         this.barcode = barcode;
     }
 
-    public Goods(String name, Long num, String uprice, String oplace, Date mdate, String category) {
+    public Goods(String name, Long num, Float uprice, String oplace, Date mdate, String category) {
         this.name = name;
         this.num = num;
         this.uprice = uprice;
@@ -106,11 +106,11 @@ public class Goods {
         this.num = num;
     }
 
-    public String getUprice() {
+    public Float getUprice() {
         return uprice;
     }
 
-    public void setUprice(String uprice) {
+    public void setUprice(Float uprice) {
         this.uprice = uprice;
     }
 
