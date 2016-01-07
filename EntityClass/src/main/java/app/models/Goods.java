@@ -20,6 +20,8 @@ public class Goods {
 
     private String category;
 
+    private String barcode;
+
     public Goods() {
 
     }
@@ -32,13 +34,38 @@ public class Goods {
         this.mdate = mdate;
     }
 
-    public Goods(Long id, String name, Long num, String uprice, String oplace, String mdate, String category) {
-        this.id = id;
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
+    public Goods(String name, Long num, String uprice, String oplace, String mdate, String category, String barcode) {
         this.name = name;
         this.num = num;
         this.uprice = uprice;
         this.oplace = oplace;
         this.mdate = mdate;
+        this.category = category;
+        this.barcode = barcode;
+    }
+
+    public Goods(String name, Long num, String uprice, String oplace, String mdate, String category) {
+        this.name = name;
+        this.num = num;
+        this.uprice = uprice;
+        this.oplace = oplace;
+        this.mdate = mdate;
+        this.category = category;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
         this.category = category;
     }
 
@@ -90,14 +117,6 @@ public class Goods {
         this.mdate = mdate;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     @Override
     public String toString() {
         return "Goods{" +
@@ -108,6 +127,7 @@ public class Goods {
                 ", oplace='" + oplace + '\'' +
                 ", mdate='" + mdate + '\'' +
                 ", category='" + category + '\'' +
+                ", barcode='" + barcode + '\'' +
                 '}';
     }
 }
